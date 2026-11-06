@@ -3,296 +3,143 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Конвейер разработки агентами</title>
-
+<title>Конвейер разработки агентами: карта процесса</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: one column of short sections, a diagram on top, tables below; reads like a wall card by the terminal. */
-:root {
-  --bg: #f6f5f1; --fg: #1d2126; --muted: #5b6470; --line: #d9d6cd; --panel: #ffffff;
-  --accent: #1f5f8b; --accent-soft: #e3eef6;
-  --you: #8a5a00; --you-soft: #fbf0d6;
-  --orch: #1f5f8b; --orch-soft: #e3eef6;
-  --auto: #3d6b3a; --auto-soft: #e6f0e4;
-  --warn: #9a3b2e; --warn-soft: #f8e6e2;
-  --sans: "IBM Plex Sans", system-ui, sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+:root{
+  --bg:#f6f5f1; --fg:#1d2126; --muted:#5b6470; --line:#d9d6cd; --panel:#fff;
+  --accent:#1f5f8b; --accent-soft:#e3eef6; --you:#8a5a00; --you-soft:#fbf0d6;
+  --auto:#3d6b3a; --auto-soft:#e6f0e4; --warn:#9a3b2e; --warn-soft:#f8e6e2;
+  --sans:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
 }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg: #161a1f; --fg: #e7e9ec; --muted: #9aa4b0; --line: #30373f; --panel: #1e242b;
-  --accent: #7fb3dc; --accent-soft: #1d2e3c;
-  --you: #e2b45a; --you-soft: #3a2f16;
-  --orch: #7fb3dc; --orch-soft: #1d2e3c;
-  --auto: #8cc287; --auto-soft: #1f3020;
-  --warn: #e08a7b; --warn-soft: #3d2320;
-  color-scheme: dark;
-} }
-:root[data-theme="dark"] {
-  --bg: #161a1f; --fg: #e7e9ec; --muted: #9aa4b0; --line: #30373f; --panel: #1e242b;
-  --accent: #7fb3dc; --accent-soft: #1d2e3c;
-  --you: #e2b45a; --you-soft: #3a2f16;
-  --orch: #7fb3dc; --orch-soft: #1d2e3c;
-  --auto: #8cc287; --auto-soft: #1f3020;
-  --warn: #e08a7b; --warn-soft: #3d2320;
-  color-scheme: dark;
-}
-body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--sans);
-  padding-block: 28px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-main { max-width: 960px; margin: 0 auto; display: grid; gap: 36px; }
-h1 { font-size: 28px; font-weight: 600; margin: 0 0 4px; text-wrap: balance; }
-h2 { font-size: 19px; font-weight: 600; margin: 0 0 12px; text-wrap: balance; }
-p { margin: 0 0 8px; max-width: 70ch; }
-.sub { color: var(--muted); }
-.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--muted); margin-top: 8px; }
-.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
-.diagram { background: var(--panel); border: 1px solid var(--line); padding: 12px; overflow-x: auto; }
-pre.mermaid { margin: 0; min-width: 640px; }
-code, kbd { font-family: var(--mono); font-size: 13px; }
-pre.cmd { background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--accent); padding: 10px 14px; margin: 8px 0 14px; overflow-x: auto; font-family: var(--mono); font-size: 13px; line-height: 1.5; white-space: pre; }
-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-.tbl { overflow-x: auto; border: 1px solid var(--line); background: var(--panel); }
-th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
-th { font-weight: 600; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
-tr:last-child td { border-bottom: 0; }
-.pill { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 500; white-space: nowrap; }
-.pill.you { background: var(--you-soft); color: var(--you); }
-.pill.orch { background: var(--orch-soft); color: var(--orch); }
-.pill.auto { background: var(--auto-soft); color: var(--auto); }
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
-.card { background: var(--panel); border: 1px solid var(--line); padding: 14px 16px; min-width: 0; }
-.card h3 { margin: 0 0 6px; font-size: 15px; font-weight: 600; }
-.card p { font-size: 14px; }
-.steps { margin: 0; padding-left: 22px; }
-.steps li { margin-bottom: 10px; }
-.flow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-family: var(--mono); font-size: 13px; }
-.flow span { background: var(--panel); border: 1px solid var(--line); padding: 3px 9px; }
-.flow i { color: var(--muted); font-style: normal; }
-.flow .you { border-color: var(--you); }
-.note { border-left: 3px solid var(--warn); background: var(--warn-soft); padding: 8px 12px; font-size: 14px; max-width: 70ch; }
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#161a1f; --fg:#e7e9ec; --muted:#9aa4b0; --line:#30373f; --panel:#1e242b;
+  --accent:#7fb3dc; --accent-soft:#1d2e3c; --you:#e2b45a; --you-soft:#3a2f16;
+  --auto:#8cc287; --auto-soft:#1f3020; --warn:#e08a7b; --warn-soft:#3d2320; color-scheme:dark;
+}}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:15px/1.55 var(--sans);margin:0;padding:28px 16px 56px}
+.wrap{max-width:900px;margin:0 auto}
+h1{font-size:26px;margin:0 0 6px}
+h2{font-size:19px;margin:34px 0 10px}
+p{margin:0 0 12px}
+.lead{color:var(--muted)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:16px 0}
+code{font:13px var(--mono);background:var(--accent-soft);padding:1px 5px;border-radius:4px}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+a{color:var(--accent)}
+.mermaid{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;margin:14px 0;overflow:auto}
+ul{margin:0 0 12px;padding-left:22px}
+li{margin:4px 0}
+.tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;background:var(--you-soft);color:var(--you);border:1px solid var(--you)}
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
 </head>
 <body>
-<div style="max-width:900px;margin:0 auto 24px;padding:14px 18px;border:1px solid var(--line);border-radius:10px;background:var(--panel)">
-<p style="margin:0 0 8px"><strong>Обобщённое описание процесса.</strong> Название продукта, имена папок
-и локальные пути заменены на нейтральные. Так выглядит конвейер, по которому я веду разработку:
-агентские роли, гейты, эскалация и роутинг моделей.</p>
-<p style="margin:0;color:var(--muted)">Модели: верхние роли работают на Claude Code и Kimi Code,
-исполнение — на кодинг-модели. Модель выбирается на сессию, а не на запрос.</p>
+<div class="wrap">
+
+<h1>Конвейер разработки агентами</h1>
+<p class="lead">Агенты выполняют работу, человек отвечает за намерение и приёмку. Состояние процесса
+живёт в файлах репозитория, поэтому работа переживает падение любой сессии.</p>
+
+<h2>Карта процесса</h2>
+<p>Сначала проверяется окружение, затем выбирается контур. Основной путь ведёт от идеи до принятого
+спринта; три остальных контура включаются по ситуации: прогон проверок, восстановление после сбоя
+и обновление базы знаний.</p>
+
+<div class="mermaid">
+flowchart TB
+  S(["Запрос на запуск контура"]) --> DOC["Проверить окружение: agentic doctor"]
+  DOC --> ENV{"Окружение поддерживается?"}
+  ENV -- "Нет" --> FIX["Установить зависимости по официальным инструкциям"]
+  FIX --> E1(["Зависимости установлены, нужна повторная проверка"])
+  ENV -- "Да" --> PROJ["Создать или открыть IT-проект"]
+  PROJ --> LOOP{"Какой контур требуется?"}
+
+  LOOP -- "Основной путь" --> B1["Вести бэклог и эпики"]
+  B1 --> B2["Продуктовое обсуждение"]
+  B2 --> B3["Подготовить Spec Package"]
+  B3 --> B4["Сформировать архитектурный контракт"]
+  B4 --> B5["Согласовать и исполнить спринт"]
+  B5 --> E2(["Спринт исполнен и принят"])
+
+  LOOP -- "Agent Evals" --> Q1["Проверить Agent Evals и controls"]
+  Q1 --> Q2(["Rollout конфигурации решён"])
+
+  LOOP -- "Recovery / Cutover" --> R1["Выполнить Recovery или Cutover"]
+  R1 --> R2(["Command path восстановлен или переключён"])
+
+  LOOP -- "Knowledge Base" --> K1["Развить Knowledge Base и согласовать процесс"]
+  K1 --> K2(["База знаний или политика обновлены"])
+
+  classDef gate fill:#ffffff,stroke:#1d2126,color:#1d2126
+  classDef step fill:#e3eef6,stroke:#1f5f8b,color:#1d2126
+  classDef done fill:#e6f0e4,stroke:#3d6b3a,color:#1d2126
+  classDef human fill:#fbf0d6,stroke:#8a5a00,color:#1d2126
+  class ENV,LOOP gate
+  class DOC,PROJ,B1,B2,B3,B4,B5,Q1,R1,K1 step
+  class E1,E2,Q2,R2,K2 done
+  class FIX human
 </div>
 
-<main>
-<header>
-  <h1>Конвейер разработки агентами</h1>
-  <p class="sub">Кто кого вызывает в репозиторий продукта и что из этого делаете вы. Факты из <code>docs/agents/roles.md</code>, <code>docs/agents/protocol.md</code> и <code>scripts/launch.ps1</code> на 20.10.2026.</p>
-  <div class="legend">
-    <span><i class="dot" style="background:var(--you)"></i>запускаете и говорите вы</span>
-    <span><i class="dot" style="background:var(--orch)"></i>запускает оркестратор</span>
-    <span><i class="dot" style="background:var(--auto)"></i>общение файлами, без чата</span>
-  </div>
-</header>
+<h2>Четыре контура</h2>
+<table>
+<tr><th>Контур</th><th>Когда включается</th><th>Чем заканчивается</th></tr>
+<tr><td>Основной путь</td><td>Новая идея или задача в продукт</td><td>Спринт исполнен и принят</td></tr>
+<tr><td>Agent Evals</td><td>Меняются агентная конфигурация, промпты или проверки</td><td>Решение о раскатке конфигурации</td></tr>
+<tr><td>Recovery / Cutover</td><td>Сбой, потеря пути исполнения, переход на новый контур</td><td>Путь восстановлен или переключён</td></tr>
+<tr><td>Knowledge Base</td><td>Накопились уроки, пора менять правила и политику</td><td>База знаний или политика обновлены</td></tr>
+</table>
 
-<section>
-  <h2>Кто кого вызывает</h2>
-  <div class="diagram">
-<pre class="mermaid">
-flowchart LR
-  classDef you fill:#fbf0d6,stroke:#8a5a00,color:#1d2126
-  classDef orch fill:#e3eef6,stroke:#1f5f8b,color:#1d2126
-  classDef auto fill:#e6f0e4,stroke:#3d6b3a,color:#1d2126
-  classDef file fill:#ffffff,stroke:#999,color:#1d2126,stroke-dasharray:4 3
+<h2>Основной путь по шагам</h2>
+<ul>
+<li><strong>Бэклог и эпики.</strong> Инициатива превращается в эпик: зачем нужна, что входит, кто владелец,
+какие ограничения и критерии готовности. Итог — документ намерения <code>intent.md</code>.</li>
+<li><strong>Продуктовое обсуждение.</strong> Потребность выясняется до формы решения: для кого делаем,
+какая польза, что вне границ.</li>
+<li><strong>Spec Package.</strong> Требования, решения и открытые вопросы собираются в пакет, по которому
+можно планировать.</li>
+<li><strong>Архитектурный контракт.</strong> Устройство решения и защита от рисков фиксируются как контракт,
+а не как устная договорённость.</li>
+<li><strong>Согласование и исполнение спринта.</strong> Работа режется на проверяемые порции, каждая
+доводится до готовности и принимается владельцем.</li>
+</ul>
 
-  V[Владелец<br/>вы]:::you
-  A[Архитектор конвейера<br/>верхняя модель · интеграционная ветка]:::you
-  P[Продукт<br/>верхняя модель · ветка продукта]:::you
-  PL[Планировщик<br/>верхняя модель]:::you
-  O[Оркестратор<br/>верхняя модель · интеграционная ветка]:::you
-  W[Воркер<br/>кодинг-модель · воркдерево тикета]:::orch
-  QA[Верификатор<br/>верхняя модель · та же папка]:::orch
-  C[Куратор<br/>верхняя модель · раз в 5–10 тикетов]:::orch
-  B[(docs/board.md<br/>хендоффы · отчёты · Q-NNN)]:::file
+<h2>Кто участвует</h2>
+<table>
+<tr><th>Роль</th><th>Что делает</th></tr>
+<tr><td><span class="tag">Human</span> Владелец решения</td><td>Объясняет, что нужно, утверждает границы и принимает результат</td></tr>
+<tr><td>Продакт-агент</td><td>Выясняет потребность и формулирует, что должно получиться</td></tr>
+<tr><td>Архитектор-агент</td><td>Продумывает устройство решения и защиту от рисков</td></tr>
+<tr><td>Оркестратор</td><td>Распределяет работу и следит за порядком шагов</td></tr>
+<tr><td>Agent Supervisor</td><td>Разбирается со сбоями и помогает безопасно продолжить работу</td></tr>
+<tr><td>Куратор-агент</td><td>Собирает уроки и меняет правила работы</td></tr>
+</table>
 
-  V -- "вкладка + первый промпт" --> P
-  V -- "вкладка + первый промпт" --> PL
-  V -- "вкладка + первый промпт, один раз на волну" --> O
-  V <-- "проектирование конвейера, промпты" --> A
-  A -. "читает git и доску; правит roles.md, скрипты, AGENTS.md" .-> B
-  P -- "спека, D-NN, ответы Q" --> B
-  PL -- "T-NNN тикеты" --> B
-  O -- "open-role.ps1 -Role worker" --> W
-  O -- "open-role.ps1 -Role verifier" --> QA
-  O -- "open-role.ps1 -Role curator" --> C
-  O -- "open-role.ps1 -Role product<br/>при открытом Q-NNN" --> P
-  W -- "handoffs/T-NNN.md: status" --> B
-  QA -- "runs/T-NNN/report.md: pass|fail" --> B
-  O <-- "читает, двигает статусы" --> B
-  B -. "verified → строка «Принято владельцем»" .-> V
-</pre>
-  </div>
-  <p class="sub" style="margin-top:10px">Воркер, верификатор и куратор с вами не разговаривают. Их открывает оркестратор, а результат они сдают файлом. Вы читаете итог на доске.</p>
-</section>
+<h2>Что закрыто механизмом, а не договорённостью</h2>
+<ul>
+<li>Обязательный шаг нельзя сделать необязательным из-за уверенности агента или желания ускориться.</li>
+<li>Ограждение нельзя обойти молча: исключение требует явного решения.</li>
+<li>Каждый переход оставляет структурированную запись: кто действовал, что изменилось, чем подтверждено.</li>
+<li>Результат считается существующим, только если он записан на диск. Доклад в чате не считается.</li>
+</ul>
 
-<section>
-  <h2>С кем вы общаетесь</h2>
-  <div class="tbl"><table>
-    <thead><tr><th>Роль</th><th>Модель</th><th>Папка</th><th>Чего от неё ждать</th><th>Кто открывает</th></tr></thead>
-    <tbody>
-      <tr><td><b>Продукт</b></td><td>верхняя модель</td><td><code>ветка продукта</code>, ветка <code>product</code></td><td>Отвечает на Q-NNN файлами, правит спеку и решения D-NN, ведёт глоссарий. Код не трогает. Утверждает с вами экраны в прототипе.</td><td><span class="pill you">вы</span> или оркестратор при открытом Q</td></tr>
-      <tr><td><b>Планировщик</b></td><td>верхняя модель</td><td><code>интеграционная ветка</code></td><td>Режет спеку на тикеты T-NNN с критериями приёмки и швами. Вы утверждаете тикеты в его сессии.</td><td><span class="pill you">вы</span></td></tr>
-      <tr><td><b>Оркестратор</b></td><td>верхняя модель</td><td><code>интеграционная ветка</code>, ветка <code>integration/demo</code></td><td>Ведёт волну сам: открывает воркеров и верификаторов, мержит, пушит, двигает доску. Код не читает. Управление ему передаёте один раз.</td><td><span class="pill you">вы</span></td></tr>
-      <tr><td><b>Архитектор конвейера</b></td><td>верхняя модель</td><td><code>интеграционная ветка</code></td><td>Проектирует и настраивает конвейер вместе с вами: роли, правила, скрипты, промпты. В разработке не участвует: тикеты не берёт, не мержит, доску не двигает.</td><td><span class="pill you">вы</span></td></tr>
-      <tr><td>Воркер</td><td>кодинг-модель</td><td><code>воркдерево тикета</code></td><td>Один тикет, одна ветка. Сдаёт хендофф со статусом и выходит.</td><td><span class="pill orch">оркестратор</span></td></tr>
-      <tr><td>Верификатор</td><td>верхняя модель</td><td>папка тикета</td><td>Адверсариальная проверка, отчёт pass|fail с доказательствами.</td><td><span class="pill orch">оркестратор</span></td></tr>
-      <tr><td>Куратор</td><td>верхняя модель</td><td><code>интеграционная ветка</code></td><td>Ретро после 5–10 тикетов: грабли, хуки, тесты, чистка AGENTS.md.</td><td><span class="pill orch">оркестратор</span></td></tr>
-    </tbody>
-  </table></div>
-</section>
+<h2>Как это выглядит в работе</h2>
+<p>Детальная операционная карта: роли агентов и их модели, путь тикета от готовности до приёмки,
+сигналы эскалации, пороги контекста и роутинг моделей по сессиям.</p>
+<p><a href="operations.html">Операционная карта конвейера →</a></p>
 
-<section>
-  <h2>Как вызвать продукт</h2>
-  <ol class="steps">
-    <li>В терминале из папки <code>интеграционная ветка</code>:
-<pre class="cmd">scripts\open-role.ps1 -Role product</pre>
-      Откроется вкладка Orca в <code>ветка продукта</code>. Если воркдерева нет, скрипт создаст его сам от <code>integration/demo</code>.</li>
-    <li>Первое сообщение в сессии продукта: что обсудить и что записать. Продукт сам начнёт с <code>git merge integration/demo</code>, чтобы видеть свежую базу. Шаблон:
-<pre class="cmd">Обсуждаем &lt;тема&gt;. Сначала прочитай AGENT_BRIEF и память продукта.
-Открытые вопросы: Q-060 (ETIM).
-Решения записывай в 09-decisions.md и CHANGELOG, коммить в ветку product
-отдельным коммитом «Правки продукта: …». Код не трогай.
-В конце одной строкой скажи, что изменилось в спеке.</pre></li>
-    <li>Продукт коммитит в ветку <code>product</code>. В базу её вливает оркестратор в начале каждого цикла. Ничего руками переносить не надо.</li>
-    <li>Когда продукт закрыл вопросы, оркестратору одной строкой: <code>Q-0NN закрыты, продолжай по доске</code>.</li>
-  </ol>
-  <p class="note">Продукт отвечает файлами, не чатом: один вопрос = один файл <code>docs/questions/Q-NNN.md</code> со статусом answered. Если он ответил только в чате, попросите записать.</p>
-</section>
+<div class="panel">
+<p style="margin:0"><strong>Об этом описании.</strong> Название продукта, имена папок, локальные пути
+и данные заказчика заменены на нейтральные или убраны. Модели: верхние роли работают
+на Claude Code и Kimi Code, исполнение — на кодинг-модели.</p>
+</div>
 
-<section>
-  <h2>Остальные команды запуска</h2>
-  <div class="cards">
-    <div class="card"><h3>Оркестратор</h3>
-<pre class="cmd">scripts\open-role.ps1 -Role orchestrator</pre>
-      <p>Первый промпт: «Продолжай по доске» плюс то, что изменилось с прошлой волны. После этого в сессию не ходите, он ждёт хендоффы сам.</p></div>
-    <div class="card"><h3>Планировщик</h3>
-<pre class="cmd">scripts\open-role.ps1 -Role planner</pre>
-      <p>Запускать после продукта, когда в спеке появились новые решения. Утверждаете тикеты прямо в его сессии.</p></div>
-    <div class="card"><h3>Доска</h3>
-<pre class="cmd">scripts\board.cmd</pre>
-      <p>Двойной клик, откроется http://127.0.0.1:7317/. Та же доска в Orca Artifacts, оркестратор обновляет её после каждой правки.</p></div>
-    <div class="card"><h3>Готовые промпты</h3>
-      <p>Первые сообщения всех ролей лежат в <code>промпты ролей в репозитории</code>, разделы 1–8. Архитектор конвейера пишет новые по запросу.</p></div>
-  </div>
-</section>
-
-<section>
-  <h2>Путь тикета и ваши три точки касания</h2>
-  <div class="flow">
-    <span class="you">экран утверждён в 12-ui.md</span><i>→</i>
-    <span class="you">тикет утверждён у планировщика</span><i>→</i>
-    <span>ready-for-agent</span><i>→</i>
-    <span>claimed</span><i>→</i>
-    <span>in-progress</span><i>→</i>
-    <span>review</span><i>→</i>
-    <span>verified</span><i>→</i>
-    <span class="you">«Принято владельцем: дата»</span><i>→</i>
-    <span>done</span>
-  </div>
-  <div class="cards" style="margin-top:14px">
-    <div class="card"><h3>1. До нарезки</h3><p>Экранные тикеты не стартуют без строки «Экран утверждён» в <code>docs/spec/12-ui.md</code>. Утверждаете с продуктом на прототипе <code>docs/ui/prototype/</code>. Сейчас так заблокированы T-039, T-041, T-045.</p></div>
-    <div class="card"><h3>2. У планировщика</h3><p>Смотрите тикеты в его сессии: критерии приёмки, «не трогать», швы. Поправки говорите ему, не оркестратору.</p></div>
-    <div class="card"><h3>3. Приёмка</h3><p>Тикет в <code>verified</code> значит слит в integration/demo. Открываете его на стенде, пишете в <code>docs/tickets/T-NNN.md</code> строку «Принято владельцем: дата» или возвращаете с комментарием, оркестратор откроет <code>fix-t-NNN</code>.</p></div>
-  </div>
-</section>
-
-<section>
-  <h2>Маршрутизация тикета: попытки, обрывы, эскалация</h2>
-  <p class="sub">Решения принимает оркестратор, но не по настроению: каждая стрелка — это значение <code>status</code> в хендоффе, <code>verdict</code> в отчёте верификатора или счётчик попыток на доске. Любая следующая попытка — новая сессия воркера, старый контекст не реанимируется.</p>
-  <div class="diagram">
-<pre class="mermaid">
-flowchart TB
-  classDef you fill:#fbf0d6,stroke:#8a5a00,color:#1d2126
-  classDef orch fill:#e3eef6,stroke:#1f5f8b,color:#1d2126
-  classDef auto fill:#e6f0e4,stroke:#3d6b3a,color:#1d2126
-  classDef warn fill:#f8e6e2,stroke:#9a3b2e,color:#1d2126
-  classDef gate fill:#ffffff,stroke:#1d2126,color:#1d2126
-
-  R[ready-for-agent<br/>зависимости done, файлы не пересекаются]:::auto
-  CL[Оркестратор: claimed<br/>ветка t-NNN от integration/demo, worktree]:::orch
-  W[Воркер · кодинг-модель · новая сессия<br/>попытка N, задание в хендоффе]:::orch
-  H{status<br/>в handoffs/T-NNN.md}:::gate
-  QA[Верификатор · верхняя модель<br/>свежая сессия, не автор кода]:::orch
-  V{verdict<br/>в runs/T-NNN/report.md}:::gate
-  N{попытка}:::gate
-  M[rebase на integration/demo<br/>→ тесты → мерж → push → verified]:::orch
-  OWN[Владелец: «Принято владельцем: дата»<br/>→ done]:::you
-  FIX[fix-t-NNN: новый воркер]:::orch
-  Q[Q-NNN продукту<br/>оркестратор открывает вкладку продукта]:::warn
-  BL[blocked<br/>дробление тикета или эскалация]:::warn
-  ESC[Эскалация · верхняя модель<br/>сессия-«план»: диагноз и план в handoff.next<br/>один раз на тикет]:::warn
-  DEAD[Сессия мертва<br/>хендофф и индекс не менялись 10 мин]:::warn
-  WIP[WIP-коммит того, что есть]:::orch
-
-  R --> CL --> W --> H
-  H -- ready_for_review --> QA --> V
-  H -- "needs_continuation<br/>контекст 35% / 45%" --> W
-  H -- "blocked: «Не трогать»,<br/>внешняя причина" --> Q
-  Q -- ответ в Q-NNN.md --> R
-  W -. обрыв .-> DEAD --> WIP --> W
-  V -- pass --> M --> OWN
-  OWN -- возврат с комментарием --> FIX --> QA
-  V -- fail --> N
-  N -- "1-й fail: новый воркер<br/>с отчётом верификатора" --> W
-  N -- 2-й fail --> BL
-  W -- "две неудачные попытки<br/>одной проблемы" --> BL
-  BL --> ESC
-  ESC -- исполняет кодинг-модель --> W
-</pre>
-  </div>
-  <div class="cards" style="margin-top:14px">
-    <div class="card"><h3>Сигналы эскалации</h3><p>Два <code>fail</code> верификатора, две неудачные попытки воркера, красные тесты после петли исправлений, тикет с миграциями или ADR. По любому из них оркестратор поднимает модель один раз до конца тикета: верхняя модель даёт диагноз и план, средняя исполняет.</p></div>
-    <div class="card"><h3>Пороги контекста</h3><p>Считает харнесс, а не агент. 35%: закончить атомарный блок, обновить хендофф, коммит, новое не начинать. 45%: стоп немедленно, хендофф, коммит, выход. Тикет продолжает новый воркер с того же хендоффа.</p></div>
-    <div class="card"><h3>Что не может никто</h3><p>Снять критерии приёмки, тронуть «Не трогать», слить без вердикта <code>pass</code>, поставить <code>done</code> без строки владельца, запушить в <code>main</code> мимо PR. Эти пути закрыты хуком и тестами, а не договорённостью.</p></div>
-  </div>
-</section>
-
-<section>
-  <h2>Роутинг моделей: сессия, а не запрос</h2>
-  <p class="sub">В Kimi Code модель и профиль выбираются на сессию (<code>kimi --model … --agent-file …</code>). Конвейер режет работу на сессии и выдаёт каждой свою модель и роль. Таблица живёт в <code>scripts/launch.ps1</code>, профили — в <code>.Kimi Code/agents/</code>.</p>
-  <div class="tbl"><table>
-    <thead><tr><th>Роль</th><th>Модель</th><th>Почему именно эта</th><th>Эскалация</th></tr></thead>
-    <tbody>
-      <tr><td>Продукт</td><td>верхняя модель</td><td>Единственная роль, которая разговаривает с человеком о смысле; одна сессия на эпик.</td><td>нет</td></tr>
-      <tr><td>Планировщик</td><td>верхняя модель</td><td>Режет спеку на проверяемые тикеты с зависимостями и границами.</td><td>нет</td></tr>
-      <tr><td>Оркестратор</td><td>верхняя модель</td><td>Контур управления решает о попытках, сессиях и гейтах, но не читает код.</td><td>нет</td></tr>
-      <tr><td>Воркер, фаза «исполнение»</td><td>кодинг-модель</td><td>Исполняет план и реализацию в отдельном worktree, сдаёт тесты и хендофф.</td><td>↑ верхняя модель, фаза «план»</td></tr>
-      <tr><td>Воркер, фаза «план»</td><td>верхняя модель</td><td>Разбирается в задаче и пишет план в <code>handoffs/T-NNN.md</code>, кода не пишет.</td><td>потолок</td></tr>
-      <tr><td>Верификатор</td><td>верхняя модель</td><td>Другая модель и свежая сессия: не автор кода, вердикт только с доказательствами.</td><td>второй fail → blocked</td></tr>
-      <tr><td>Куратор</td><td>верхняя модель</td><td>Отвечает «разовая неудача или паттерн» и выбирает ступень лестницы знания.</td><td>нет</td></tr>
-      <tr><td>Архитектор конвейера</td><td>верхняя модель</td><td>Проектирует роли и правила вместе с владельцем, фронтир в памяти.</td><td>нет</td></tr>
-    </tbody>
-  </table></div>
-  <div class="cards" style="margin-top:14px">
-    <div class="card"><h3>Где принимается решение о модели</h3><p>В <code>launch.ps1</code>: роль задаёт модель и нативный профиль, <code>open-role.ps1</code> — worktree и вкладку Orca. Ключ <code>-Model</code> переопределяет модель явно, в том числе на фазу «план».</p></div>
-    <div class="card"><h3>Что считается провалом роутинга</h3><p>Эскалация по настроению, смена модели посреди тикета из-за лимита и «дотягивание» чужого контекста. Сигнал эскалации всегда на диске: попытки, <code>fail</code> или красные тесты.</p></div>
-  </div>
-</section>
-
-<section>
-  <h2>Куда смотреть, если что-то непонятно</h2>
-  <div class="tbl"><table>
-    <thead><tr><th>Вопрос</th><th>Файл</th></tr></thead>
-    <tbody>
-      <tr><td>Что сейчас в работе, у кого, какая попытка</td><td><code>docs/board.md</code></td></tr>
-      <tr><td>Что воркер сделал и на чём остановился</td><td><code>docs/handoffs/T-NNN.md</code>, поле status</td></tr>
-      <tr><td>Почему верификатор завернул</td><td><code>docs/runs/T-NNN/report.md</code></td></tr>
-      <tr><td>Что открыто у продукта</td><td><code>docs/questions/Q-NNN.md</code> со статусом не answered</td></tr>
-      <tr><td>Что закрыто за день</td><td><code>docs/devlog.md</code>, <code>docs/runs/metrics.jsonl</code></td></tr>
-      <tr><td>Почему вкладка не открылась</td><td><code>docs/runs/open-role.log</code></td></tr>
-      <tr><td>Правила, которые нельзя обойти</td><td><code>AGENTS.md</code>, раздел «Гейты»</td></tr>
-    </tbody>
-  </table></div>
-  <p class="sub" style="margin-top:10px">Правило конвейера: если этого нет на диске, этого не было. Доклад в чате не считается.</p>
-</section>
-</main>
-<script>mermaid.initialize({ startOnLoad: true, theme: matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "neutral" });</script>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+<script>
+mermaid.initialize({startOnLoad:true, theme:"neutral", flowchart:{curve:"basis", useMaxWidth:true}});
+</script>
 </body>
 </html>
