@@ -6,12 +6,14 @@
 <title>Конвейер разработки агентами — схема для печати</title>
 <style>
   html,body{margin:0;padding:0;background:#fff}
-  /* размер подобран под A4 в альбомной ориентации с полями 6 мм */
-  #bpmn{width:1090px;height:740px}
-  @page{size:A4 landscape;margin:6mm}
+  body{display:flex;align-items:center;justify-content:center;min-height:100vh}
+  /* ширина в CSS-пикселях: 1062px ≈ 281 мм, то есть A4 в альбомной ориентации с полями 8 мм */
+  #bpmn{width:1062px;height:446px}
+  .bjs-powered-by{display:none}
+  @page{size:A4 landscape;margin:8mm}
   @media print{
-    html,body{background:#fff}
-    #bpmn{width:1090px;height:740px}
+    html,body{background:#fff;min-height:0}
+    body{display:block}
   }
 </style>
 </head>
@@ -20,17 +22,43 @@
 <script src="https://cdn.jsdelivr.net/npm/bpmn-js@17/dist/bpmn-navigated-viewer.production.min.js"></script>
 <script>
 (function () {
-  var viewer = new BpmnJS({ container: '#bpmn' });
+  var qs = new URLSearchParams(location.search);
+  var width = parseInt(qs.get('w') || '0', 10) || 1062;
+  var host = document.getElementById('bpmn');
+  var viewer = new BpmnJS({ container: host });
+
+  // рамка всей схемы: заодно даёт точные пропорции листа
+  function bbox() {
+    var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    viewer.get('elementRegistry').forEach(function (el) {
+      if (!el.parent || el.type === 'bpmn:Process' || el.type === 'bpmn:Collaboration') return;
+      if (el.waypoints) {
+        el.waypoints.forEach(function (p) { see(p.x, p.y); });
+      } else if (typeof el.x === 'number' && typeof el.width === 'number') {
+        see(el.x, el.y); see(el.x + el.width, el.y + el.height);
+      }
+      function see(x, y) {
+        if (x < minX) minX = x; if (y < minY) minY = y;
+        if (x > maxX) maxX = x; if (y > maxY) maxY = y;
+      }
+    });
+    return { w: maxX - minX, h: maxY - minY };
+  }
+
   fetch('pipeline.bpmn')
     .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
     .then(function (xml) { return viewer.importXML(xml); })
     .then(function () {
-      var canvas = viewer.get('canvas');
-      canvas.zoom('fit-viewport');
+      var box = bbox();
+      var height = Math.round(width * box.h / box.w);
+      host.style.width = width + 'px';
+      host.style.height = height + 'px';
+      viewer.get('canvas').zoom('fit-viewport');
+      document.body.setAttribute('data-size', width + 'x' + height);
       document.title = 'Схема готова';
     })
     .catch(function (err) {
-      document.getElementById('bpmn').textContent = 'Ошибка отрисовки: ' + err.message;
+      host.textContent = 'Ошибка отрисовки: ' + err.message;
     });
 })();
 </script>

@@ -1,2 +1,271 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_pipeline" targetNamespace="http://bpmn.io/schema/bpmn" exporter="agentic-pipeline"><bpmn:collaboration id="Collaboration_pipeline"><bpmn:participant id="Participant_pipeline" name="Agentic SDLC · Карта процесса" processRef="Process_pipeline" /></bpmn:collaboration><bpmn:process id="Process_pipeline" isExecutable="false" name="Agentic SDLC · Карта процесса"><bpmn:exclusiveGateway id="ExclusiveGateway_id_2a1c3ec61d30" name="Какой контур требуется?"><bpmn:incoming>Flow_id_92453f72c065</bpmn:incoming><bpmn:outgoing>Flow_id_bc73ee4d0977</bpmn:outgoing><bpmn:outgoing>Flow_id_afa27b5a7282</bpmn:outgoing><bpmn:outgoing>Flow_id_9479142c8324</bpmn:outgoing><bpmn:outgoing>Flow_id_1d2dd076566a</bpmn:outgoing></bpmn:exclusiveGateway><bpmn:exclusiveGateway id="ExclusiveGateway_id_799a80bee65c" name="Окружение поддерживается?"><bpmn:incoming>Flow_id_73ea5d18be6f</bpmn:incoming><bpmn:outgoing>Flow_id_5c351b711d16</bpmn:outgoing><bpmn:outgoing>Flow_id_d33841221067</bpmn:outgoing></bpmn:exclusiveGateway><bpmn:endEvent id="EndEvent_id_69d124335366" name="Command path восстановлен или переключён"><bpmn:incoming>Flow_id_c00ef26f464a</bpmn:incoming></bpmn:endEvent><bpmn:endEvent id="EndEvent_id_0b8faa5d3eed" name="Rollout агентной конфигурации решён"><bpmn:incoming>Flow_id_7c7b0e10a22e</bpmn:incoming></bpmn:endEvent><bpmn:endEvent id="EndEvent_id_fb1887c0f20c" name="Knowledge Base или политика обновлены"><bpmn:incoming>Flow_id_6cf0c3a15689</bpmn:incoming></bpmn:endEvent><bpmn:endEvent id="EndEvent_id_0ca813f61f6e" name="Зависимости установлены; требуется повторная проверка"><bpmn:incoming>Flow_id_fb984ba1911c</bpmn:incoming></bpmn:endEvent><bpmn:endEvent id="EndEvent_id_80ea4acecff7" name="Спринт исполнен и принят"><bpmn:incoming>Flow_id_886c06bfc16b</bpmn:incoming></bpmn:endEvent><bpmn:serviceTask id="ServiceTask_id_4bd22721841c" name="Проверить окружение через agentic doctor"><bpmn:incoming>Flow_id_c364f8ae142e</bpmn:incoming><bpmn:outgoing>Flow_id_73ea5d18be6f</bpmn:outgoing></bpmn:serviceTask><bpmn:serviceTask id="ServiceTask_id_93a4e8392361" name="Создать или открыть IT-проект"><bpmn:incoming>Flow_id_5c351b711d16</bpmn:incoming><bpmn:outgoing>Flow_id_92453f72c065</bpmn:outgoing></bpmn:serviceTask><bpmn:userTask id="UserTask_id_b52c8f4b3643" name="Установить недостающие зависимости по официальным инструкциям"><bpmn:incoming>Flow_id_d33841221067</bpmn:incoming><bpmn:outgoing>Flow_id_fb984ba1911c</bpmn:outgoing></bpmn:userTask><bpmn:startEvent id="StartEvent_1" name="Получен запрос на запуск процессного контура"><bpmn:outgoing>Flow_id_c364f8ae142e</bpmn:outgoing></bpmn:startEvent><bpmn:callActivity id="CallActivity_id_b310d0b86319" name="Выполнить Recovery или Cutover"><bpmn:incoming>Flow_id_afa27b5a7282</bpmn:incoming><bpmn:outgoing>Flow_id_c00ef26f464a</bpmn:outgoing></bpmn:callActivity><bpmn:callActivity id="CallActivity_id_e3cd6a3c93b9" name="Развить Knowledge Base и согласовать процесс"><bpmn:incoming>Flow_id_9479142c8324</bpmn:incoming><bpmn:outgoing>Flow_id_6cf0c3a15689</bpmn:outgoing></bpmn:callActivity><bpmn:callActivity id="CallActivity_id_7e5f0c79b3fd" name="Согласовать и исполнить спринт"><bpmn:incoming>Flow_id_9a36909b9d57</bpmn:incoming><bpmn:outgoing>Flow_id_886c06bfc16b</bpmn:outgoing></bpmn:callActivity><bpmn:callActivity id="CallActivity_id_2ed8736a2565" name="Сформировать архитектурный контракт"><bpmn:incoming>Flow_id_f758577c798f</bpmn:incoming><bpmn:outgoing>Flow_id_9a36909b9d57</bpmn:outgoing></bpmn:callActivity><bpmn:callActivity id="CallActivity_id_24354a969e6b" name="Подготовить Spec Package"><bpmn:incoming>Flow_id_8e1cf75f3cde</bpmn:incoming><bpmn:outgoing>Flow_id_f758577c798f</bpmn:outgoing></bpmn:callActivity><bpmn:callActivity id="CallActivity_id_fadc5f147aeb" name="Провести продуктовое обсуждение"><bpmn:incoming>Flow_id_9fe6ea76561b</bpmn:incoming><bpmn:outgoing>Flow_id_8e1cf75f3cde</bpmn:outgoing></bpmn:callActivity><bpmn:callActivity id="CallActivity_id_dfafc28bd9a2" name="Вести бэклог и эпики"><bpmn:incoming>Flow_id_bc73ee4d0977</bpmn:incoming><bpmn:outgoing>Flow_id_9fe6ea76561b</bpmn:outgoing></bpmn:callActivity><bpmn:callActivity id="CallActivity_id_90f8bec1cc24" name="Проверить Agent Evals и controls"><bpmn:incoming>Flow_id_1d2dd076566a</bpmn:incoming><bpmn:outgoing>Flow_id_7c7b0e10a22e</bpmn:outgoing></bpmn:callActivity><bpmn:sequenceFlow id="Flow_id_bc73ee4d0977" sourceRef="ExclusiveGateway_id_2a1c3ec61d30" targetRef="CallActivity_id_dfafc28bd9a2" name="Основной путь" /><bpmn:sequenceFlow id="Flow_id_afa27b5a7282" sourceRef="ExclusiveGateway_id_2a1c3ec61d30" targetRef="CallActivity_id_b310d0b86319" name="Recovery / Cutover" /><bpmn:sequenceFlow id="Flow_id_9479142c8324" sourceRef="ExclusiveGateway_id_2a1c3ec61d30" targetRef="CallActivity_id_e3cd6a3c93b9" name="Knowledge Base" /><bpmn:sequenceFlow id="Flow_id_c00ef26f464a" sourceRef="CallActivity_id_b310d0b86319" targetRef="EndEvent_id_69d124335366" /><bpmn:sequenceFlow id="Flow_id_1d2dd076566a" sourceRef="ExclusiveGateway_id_2a1c3ec61d30" targetRef="CallActivity_id_90f8bec1cc24" name="Agent Evals" /><bpmn:sequenceFlow id="Flow_id_7c7b0e10a22e" sourceRef="CallActivity_id_90f8bec1cc24" targetRef="EndEvent_id_0b8faa5d3eed" /><bpmn:sequenceFlow id="Flow_id_6cf0c3a15689" sourceRef="CallActivity_id_e3cd6a3c93b9" targetRef="EndEvent_id_fb1887c0f20c" /><bpmn:sequenceFlow id="Flow_id_c364f8ae142e" sourceRef="StartEvent_1" targetRef="ServiceTask_id_4bd22721841c" /><bpmn:sequenceFlow id="Flow_id_73ea5d18be6f" sourceRef="ServiceTask_id_4bd22721841c" targetRef="ExclusiveGateway_id_799a80bee65c" /><bpmn:sequenceFlow id="Flow_id_5c351b711d16" sourceRef="ExclusiveGateway_id_799a80bee65c" targetRef="ServiceTask_id_93a4e8392361" name="Да" /><bpmn:sequenceFlow id="Flow_id_92453f72c065" sourceRef="ServiceTask_id_93a4e8392361" targetRef="ExclusiveGateway_id_2a1c3ec61d30" /><bpmn:sequenceFlow id="Flow_id_d33841221067" sourceRef="ExclusiveGateway_id_799a80bee65c" targetRef="UserTask_id_b52c8f4b3643" name="Нет" /><bpmn:sequenceFlow id="Flow_id_fb984ba1911c" sourceRef="UserTask_id_b52c8f4b3643" targetRef="EndEvent_id_0ca813f61f6e" /><bpmn:sequenceFlow id="Flow_id_886c06bfc16b" sourceRef="CallActivity_id_7e5f0c79b3fd" targetRef="EndEvent_id_80ea4acecff7" /><bpmn:sequenceFlow id="Flow_id_9a36909b9d57" sourceRef="CallActivity_id_2ed8736a2565" targetRef="CallActivity_id_7e5f0c79b3fd" /><bpmn:sequenceFlow id="Flow_id_f758577c798f" sourceRef="CallActivity_id_24354a969e6b" targetRef="CallActivity_id_2ed8736a2565" /><bpmn:sequenceFlow id="Flow_id_8e1cf75f3cde" sourceRef="CallActivity_id_fadc5f147aeb" targetRef="CallActivity_id_24354a969e6b" /><bpmn:sequenceFlow id="Flow_id_9fe6ea76561b" sourceRef="CallActivity_id_dfafc28bd9a2" targetRef="CallActivity_id_fadc5f147aeb" /></bpmn:process><bpmndi:BPMNDiagram id="BPMNDiagram_pipeline"><bpmndi:BPMNPlane id="BPMNPlane_pipeline" bpmnElement="Collaboration_pipeline"><bpmndi:BPMNShape id="Participant_pipeline_di" bpmnElement="Participant_pipeline" isHorizontal="true"><dc:Bounds x="110.0" y="-190.0" width="2499.0" height="1050.0" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="CallActivity_id_b310d0b86319_di" bpmnElement="CallActivity_id_b310d0b86319"><dc:Bounds x="980.0" y="371.0" width="186.0" height="80.0" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="EndEvent_id_69d124335366_di" bpmnElement="EndEvent_id_69d124335366"><dc:Bounds x="1220.0" y="393.0" width="36.0" height="36.0" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="ExclusiveGateway_id_2a1c3ec61d30_di" bpmnElement="ExclusiveGateway_id_2a1c3ec61d30"><dc:Bounds x="820.0" y="195.0" width="50.0" height="50.0" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="EndEvent_id_0b8faa5d3eed_di" bpmnElement="EndEvent_id_0b8faa5d3eed"><dc:Bounds x="1220.0" y="282.0" width="36.0" height="36.0" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="EndEvent_id_fb1887c0f20c_di" bpmnElement="EndEvent_id_fb1887c0f20c"><dc:Bounds x="1220.0" y="582.0" width="36.0" height="36.0" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="CallActivity_id_e3cd6a3c93b9_di" bpmnElement="CallActivity_id_e3cd6a3c93b9"><dc:Bounds x="980.0" y="560.0" width="186.0" height="80.0" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1"><dc:Bounds x="202.0" y="202.0" width="36.0" height="36.0" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="ServiceTask_id_4bd22721841c_di" bpmnElement="ServiceTask_id_4bd22721841c"><dc:Bounds x="280.0" y="180.0" width="170.0" height="80.0" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="ExclusiveGateway_id_799a80bee65c_di" bpmnElement="ExclusiveGateway_id_799a80bee65c"><dc:Bounds x="480.0" y="195.0" width="50.0" height="50.0" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="ServiceTask_id_93a4e8392361_di" bpmnElement="ServiceTask_id_93a4e8392361"><dc:Bounds x="600.0" y="180.0" width="170.0" height="80.0" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="UserTask_id_b52c8f4b3643_di" bpmnElement="UserTask_id_b52c8f4b3643"><dc:Bounds x="395.0" y="410.0" width="220.0" height="80.0" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="EndEvent_id_0ca813f61f6e_di" bpmnElement="EndEvent_id_0ca813f61f6e"><dc:Bounds x="487.0" y="562.0" width="36.0" height="36.0" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="EndEvent_id_80ea4acecff7_di" bpmnElement="EndEvent_id_80ea4acecff7"><dc:Bounds x="1995.0" y="-68.0" width="36.0" height="36.0" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="CallActivity_id_7e5f0c79b3fd_di" bpmnElement="CallActivity_id_7e5f0c79b3fd"><dc:Bounds x="1795.0" y="-90.0" width="150.0" height="80.0" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="CallActivity_id_2ed8736a2565_di" bpmnElement="CallActivity_id_2ed8736a2565"><dc:Bounds x="1595.0" y="-90.0" width="150.0" height="80.0" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="CallActivity_id_24354a969e6b_di" bpmnElement="CallActivity_id_24354a969e6b"><dc:Bounds x="1395.0" y="-90.0" width="150.0" height="80.0" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="CallActivity_id_fadc5f147aeb_di" bpmnElement="CallActivity_id_fadc5f147aeb"><dc:Bounds x="1195.0" y="-90.0" width="150.0" height="80.0" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="CallActivity_id_dfafc28bd9a2_di" bpmnElement="CallActivity_id_dfafc28bd9a2"><dc:Bounds x="995.0" y="-90.0" width="150.0" height="80.0" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="CallActivity_id_90f8bec1cc24_di" bpmnElement="CallActivity_id_90f8bec1cc24"><dc:Bounds x="980.0" y="200.0" width="186.0" height="80.0" /></bpmndi:BPMNShape><bpmndi:BPMNEdge id="Flow_id_bc73ee4d0977_di" bpmnElement="Flow_id_bc73ee4d0977"><di:waypoint x="845.0" y="195.0" /><di:waypoint x="845.0" y="-50.0" /><di:waypoint x="995.0" y="-50.0" /><bpmndi:BPMNLabel><dc:Bounds x="855.0" y="-36.0" width="74.0" height="12.0" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Flow_id_afa27b5a7282_di" bpmnElement="Flow_id_afa27b5a7282"><di:waypoint x="845.0" y="245.0" /><di:waypoint x="845.0" y="411.0" /><di:waypoint x="980.0" y="411.0" /><bpmndi:BPMNLabel><dc:Bounds x="850.0" y="325.0" width="90.0" height="12.0" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Flow_id_9479142c8324_di" bpmnElement="Flow_id_9479142c8324"><di:waypoint x="845.0" y="245.0" /><di:waypoint x="845.0" y="600.0" /><di:waypoint x="980.0" y="600.0" /><bpmndi:BPMNLabel><dc:Bounds x="850.0" y="500.0" width="80.0" height="12.0" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Flow_id_c00ef26f464a_di" bpmnElement="Flow_id_c00ef26f464a"><di:waypoint x="1160.0" y="411.0" /><di:waypoint x="1220.0" y="411.0" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Flow_id_1d2dd076566a_di" bpmnElement="Flow_id_1d2dd076566a"><di:waypoint x="870.0" y="220.0" /><di:waypoint x="930.0" y="220.0" /><di:waypoint x="930.0" y="240.0" /><di:waypoint x="980.0" y="240.0" /><bpmndi:BPMNLabel><dc:Bounds x="892.0" y="220.0" width="56.0" height="12.0" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Flow_id_7c7b0e10a22e_di" bpmnElement="Flow_id_7c7b0e10a22e"><di:waypoint x="1166.0" y="240.0" /><di:waypoint x="1193.0" y="240.0" /><di:waypoint x="1193.0" y="300.0" /><di:waypoint x="1220.0" y="300.0" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Flow_id_6cf0c3a15689_di" bpmnElement="Flow_id_6cf0c3a15689"><di:waypoint x="1160.0" y="600.0" /><di:waypoint x="1220.0" y="600.0" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Flow_id_c364f8ae142e_di" bpmnElement="Flow_id_c364f8ae142e"><di:waypoint x="238.0" y="220.0" /><di:waypoint x="280.0" y="220.0" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Flow_id_73ea5d18be6f_di" bpmnElement="Flow_id_73ea5d18be6f"><di:waypoint x="450.0" y="220.0" /><di:waypoint x="480.0" y="220.0" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Flow_id_5c351b711d16_di" bpmnElement="Flow_id_5c351b711d16"><di:waypoint x="530.0" y="220.0" /><di:waypoint x="600.0" y="220.0" /><bpmndi:BPMNLabel><dc:Bounds x="550.0" y="202.0" width="24.0" height="12.0" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Flow_id_92453f72c065_di" bpmnElement="Flow_id_92453f72c065"><di:waypoint x="770.0" y="220.0" /><di:waypoint x="820.0" y="220.0" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Flow_id_d33841221067_di" bpmnElement="Flow_id_d33841221067"><di:waypoint x="505.0" y="245.0" /><di:waypoint x="505.0" y="410.0" /><bpmndi:BPMNLabel><dc:Bounds x="518.0" y="327.0" width="19.0" height="12.0" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Flow_id_fb984ba1911c_di" bpmnElement="Flow_id_fb984ba1911c"><di:waypoint x="505.0" y="490.0" /><di:waypoint x="505.0" y="562.0" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Flow_id_886c06bfc16b_di" bpmnElement="Flow_id_886c06bfc16b"><di:waypoint x="1945.0" y="-50.0" /><di:waypoint x="1995.0" y="-50.0" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Flow_id_9a36909b9d57_di" bpmnElement="Flow_id_9a36909b9d57"><di:waypoint x="1745.0" y="-50.0" /><di:waypoint x="1795.0" y="-50.0" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Flow_id_f758577c798f_di" bpmnElement="Flow_id_f758577c798f"><di:waypoint x="1545.0" y="-50.0" /><di:waypoint x="1595.0" y="-50.0" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Flow_id_8e1cf75f3cde_di" bpmnElement="Flow_id_8e1cf75f3cde"><di:waypoint x="1345.0" y="-50.0" /><di:waypoint x="1395.0" y="-50.0" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Flow_id_9fe6ea76561b_di" bpmnElement="Flow_id_9fe6ea76561b"><di:waypoint x="1145.0" y="-50.0" /><di:waypoint x="1195.0" y="-50.0" /></bpmndi:BPMNEdge></bpmndi:BPMNPlane></bpmndi:BPMNDiagram></bpmn:definitions>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0ddkqgr" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+  <bpmn:collaboration id="Collaboration_06ftemy" isClosed="false">
+    <bpmn:participant id="Participant_0nu1w1b" name="Agentic SDLC · Карта процесса" processRef="Process_1d4oa6g46" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_1d4oa6g46" processType="None" isClosed="false" isExecutable="false">
+    <sequenceFlow xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Flow_id_bc73ee4d0977" name="Основной путь" sourceRef="ExclusiveGateway_id_2a1c3ec61d30" targetRef="CallActivity_id_dfafc28bd9a2" />
+    <sequenceFlow xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Flow_id_afa27b5a7282" name="Recovery / Cutover" sourceRef="ExclusiveGateway_id_2a1c3ec61d30" targetRef="CallActivity_id_b310d0b86319" />
+    <sequenceFlow xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Flow_id_9479142c8324" name="Knowledge Base" sourceRef="ExclusiveGateway_id_2a1c3ec61d30" targetRef="CallActivity_id_e3cd6a3c93b9" />
+    <callActivity xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="CallActivity_id_b310d0b86319" name="Выполнить Recovery или Cutover">
+      <incoming>Flow_id_afa27b5a7282</incoming>
+      <outgoing>Flow_id_c00ef26f464a</outgoing>
+    </callActivity>
+    <endEvent xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="EndEvent_id_69d124335366" name="Command path восстановлен или переключён">
+      <incoming>Flow_id_c00ef26f464a</incoming>
+    </endEvent>
+    <sequenceFlow xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Flow_id_c00ef26f464a" name="" sourceRef="CallActivity_id_b310d0b86319" targetRef="EndEvent_id_69d124335366" />
+    <exclusiveGateway xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="ExclusiveGateway_id_2a1c3ec61d30" name="Какой контур требуется?" default="Flow_id_bc73ee4d0977">
+      <incoming>Flow_id_92453f72c065</incoming>
+      <outgoing>Flow_id_bc73ee4d0977</outgoing>
+      <outgoing>Flow_id_afa27b5a7282</outgoing>
+      <outgoing>Flow_id_9479142c8324</outgoing>
+      <outgoing>Flow_id_1d2dd076566a</outgoing>
+    </exclusiveGateway>
+    <endEvent xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="EndEvent_id_0b8faa5d3eed" name="Rollout агентной конфигурации решён">
+      <incoming>Flow_id_7c7b0e10a22e</incoming>
+    </endEvent>
+    <sequenceFlow xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Flow_id_1d2dd076566a" name="Agent Evals" sourceRef="ExclusiveGateway_id_2a1c3ec61d30" targetRef="CallActivity_id_90f8bec1cc24" />
+    <sequenceFlow xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:storm="http://storm.bpmn2.ru/ns" id="Flow_id_7c7b0e10a22e" name="" sourceRef="CallActivity_id_90f8bec1cc24" targetRef="EndEvent_id_0b8faa5d3eed" storm:FontColor="#795548" />
+    <endEvent xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="EndEvent_id_fb1887c0f20c" name="Knowledge Base или политика обновлены">
+      <incoming>Flow_id_6cf0c3a15689</incoming>
+    </endEvent>
+    <callActivity xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="CallActivity_id_e3cd6a3c93b9" name="Развить Knowledge Base и согласовать процесс">
+      <incoming>Flow_id_9479142c8324</incoming>
+      <outgoing>Flow_id_6cf0c3a15689</outgoing>
+    </callActivity>
+    <sequenceFlow xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Flow_id_6cf0c3a15689" name="" sourceRef="CallActivity_id_e3cd6a3c93b9" targetRef="EndEvent_id_fb1887c0f20c" />
+    <bpmn:startEvent id="StartEvent_1" name="Получен запрос на запуск процессного контура">
+      <bpmn:outgoing>Flow_id_c364f8ae142e</bpmn:outgoing>
+    </bpmn:startEvent>
+    <serviceTask xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="ServiceTask_id_4bd22721841c" name="Проверить окружение через agentic doctor" implementation="##WebService">
+      <incoming>Flow_id_c364f8ae142e</incoming>
+      <outgoing>Flow_id_73ea5d18be6f</outgoing>
+    </serviceTask>
+    <exclusiveGateway xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="ExclusiveGateway_id_799a80bee65c" name="Окружение поддерживается?" default="Flow_id_5c351b711d16">
+      <incoming>Flow_id_73ea5d18be6f</incoming>
+      <outgoing>Flow_id_5c351b711d16</outgoing>
+      <outgoing>Flow_id_d33841221067</outgoing>
+    </exclusiveGateway>
+    <serviceTask xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="ServiceTask_id_93a4e8392361" name="Создать или открыть IT-проект" implementation="##WebService">
+      <incoming>Flow_id_5c351b711d16</incoming>
+      <outgoing>Flow_id_92453f72c065</outgoing>
+    </serviceTask>
+    <sequenceFlow xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Flow_id_c364f8ae142e" name="" sourceRef="StartEvent_1" targetRef="ServiceTask_id_4bd22721841c" />
+    <sequenceFlow xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Flow_id_73ea5d18be6f" name="" sourceRef="ServiceTask_id_4bd22721841c" targetRef="ExclusiveGateway_id_799a80bee65c" />
+    <sequenceFlow xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Flow_id_5c351b711d16" name="Да" sourceRef="ExclusiveGateway_id_799a80bee65c" targetRef="ServiceTask_id_93a4e8392361" />
+    <sequenceFlow xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Flow_id_92453f72c065" name="" sourceRef="ServiceTask_id_93a4e8392361" targetRef="ExclusiveGateway_id_2a1c3ec61d30" />
+    <sequenceFlow xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Flow_id_d33841221067" name="Нет" sourceRef="ExclusiveGateway_id_799a80bee65c" targetRef="UserTask_id_b52c8f4b3643" />
+    <sequenceFlow xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Flow_id_fb984ba1911c" name="" sourceRef="UserTask_id_b52c8f4b3643" targetRef="EndEvent_id_0ca813f61f6e" />
+    <userTask xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="UserTask_id_b52c8f4b3643" name="Установить недостающие зависимости по официальным инструкциям" implementation="##unspecified">
+      <incoming>Flow_id_d33841221067</incoming>
+      <outgoing>Flow_id_fb984ba1911c</outgoing>
+    </userTask>
+    <endEvent xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="EndEvent_id_0ca813f61f6e" name="Зависимости установлены; требуется повторная проверка">
+      <incoming>Flow_id_fb984ba1911c</incoming>
+    </endEvent>
+    <endEvent xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="EndEvent_id_80ea4acecff7" name="Спринт исполнен и принят">
+      <incoming>Flow_id_886c06bfc16b</incoming>
+    </endEvent>
+    <callActivity xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="CallActivity_id_7e5f0c79b3fd" name="Согласовать и исполнить спринт">
+      <incoming>Flow_id_9a36909b9d57</incoming>
+      <outgoing>Flow_id_886c06bfc16b</outgoing>
+    </callActivity>
+    <callActivity xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="CallActivity_id_2ed8736a2565" name="Сформировать архитектурный контракт">
+      <incoming>Flow_id_f758577c798f</incoming>
+      <outgoing>Flow_id_9a36909b9d57</outgoing>
+    </callActivity>
+    <callActivity xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="CallActivity_id_24354a969e6b" name="Подготовить Spec Package">
+      <incoming>Flow_id_8e1cf75f3cde</incoming>
+      <outgoing>Flow_id_f758577c798f</outgoing>
+    </callActivity>
+    <callActivity xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="CallActivity_id_fadc5f147aeb" name="Провести продуктовое обсуждение">
+      <incoming>Flow_id_9fe6ea76561b</incoming>
+      <outgoing>Flow_id_8e1cf75f3cde</outgoing>
+    </callActivity>
+    <callActivity xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="CallActivity_id_dfafc28bd9a2" name="Вести бэклог и эпики">
+      <incoming>Flow_id_bc73ee4d0977</incoming>
+      <outgoing>Flow_id_9fe6ea76561b</outgoing>
+    </callActivity>
+    <sequenceFlow xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Flow_id_886c06bfc16b" name="" sourceRef="CallActivity_id_7e5f0c79b3fd" targetRef="EndEvent_id_80ea4acecff7" />
+    <sequenceFlow xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Flow_id_9a36909b9d57" name="" sourceRef="CallActivity_id_2ed8736a2565" targetRef="CallActivity_id_7e5f0c79b3fd" />
+    <sequenceFlow xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Flow_id_f758577c798f" name="" sourceRef="CallActivity_id_24354a969e6b" targetRef="CallActivity_id_2ed8736a2565" />
+    <sequenceFlow xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Flow_id_8e1cf75f3cde" name="" sourceRef="CallActivity_id_fadc5f147aeb" targetRef="CallActivity_id_24354a969e6b" />
+    <sequenceFlow xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Flow_id_9fe6ea76561b" name="" sourceRef="CallActivity_id_dfafc28bd9a2" targetRef="CallActivity_id_fadc5f147aeb" />
+    <callActivity xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="CallActivity_id_90f8bec1cc24" name="Проверить Agent Evals и controls">
+      <incoming>Flow_id_1d2dd076566a</incoming>
+      <outgoing>Flow_id_7c7b0e10a22e</outgoing>
+    </callActivity>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_id_ccc158a3ca7e">
+    <bpmndi:BPMNPlane id="BPMNPlane_id_30200fd172f6" bpmnElement="Collaboration_06ftemy">
+      <bpmndi:BPMNShape id="Participant_0nu1w1b_di" bpmnElement="Participant_0nu1w1b" isHorizontal="true">
+        <dc:Bounds x="110" y="-190" width="2499" height="1050" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="CallActivity_id_b310d0b86319_di" bpmnElement="CallActivity_id_b310d0b86319">
+        <dc:Bounds x="980" y="371" width="186" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_id_69d124335366_di" bpmnElement="EndEvent_id_69d124335366">
+        <dc:Bounds x="1220" y="393" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_id_2a1c3ec61d30_di" bpmnElement="ExclusiveGateway_id_2a1c3ec61d30" isMarkerVisible="true">
+        <dc:Bounds x="820" y="195" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_id_0b8faa5d3eed_di" bpmnElement="EndEvent_id_0b8faa5d3eed">
+        <dc:Bounds x="1220" y="282" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_id_fb1887c0f20c_di" bpmnElement="EndEvent_id_fb1887c0f20c">
+        <dc:Bounds x="1220" y="582" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="CallActivity_id_e3cd6a3c93b9_di" bpmnElement="CallActivity_id_e3cd6a3c93b9">
+        <dc:Bounds x="980" y="560" width="186" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="202" y="202" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_id_4bd22721841c_di" bpmnElement="ServiceTask_id_4bd22721841c">
+        <dc:Bounds x="280" y="180" width="170" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_id_799a80bee65c_di" bpmnElement="ExclusiveGateway_id_799a80bee65c" isMarkerVisible="true">
+        <dc:Bounds x="480" y="195" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="460" y="161" width="89" height="24" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_id_93a4e8392361_di" bpmnElement="ServiceTask_id_93a4e8392361">
+        <dc:Bounds x="600" y="180" width="170" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_id_b52c8f4b3643_di" bpmnElement="UserTask_id_b52c8f4b3643">
+        <dc:Bounds x="395" y="410" width="220" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_id_0ca813f61f6e_di" bpmnElement="EndEvent_id_0ca813f61f6e">
+        <dc:Bounds x="487" y="562" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="471" y="598" width="68" height="60" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_id_80ea4acecff7_di" bpmnElement="EndEvent_id_80ea4acecff7">
+        <dc:Bounds x="1995" y="-68" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1970" y="-32" width="86" height="24" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="CallActivity_id_7e5f0c79b3fd_di" bpmnElement="CallActivity_id_7e5f0c79b3fd">
+        <dc:Bounds x="1795" y="-90" width="150" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="CallActivity_id_2ed8736a2565_di" bpmnElement="CallActivity_id_2ed8736a2565">
+        <dc:Bounds x="1595" y="-90" width="150" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="CallActivity_id_24354a969e6b_di" bpmnElement="CallActivity_id_24354a969e6b">
+        <dc:Bounds x="1395" y="-90" width="150" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="CallActivity_id_fadc5f147aeb_di" bpmnElement="CallActivity_id_fadc5f147aeb">
+        <dc:Bounds x="1195" y="-90" width="150" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="CallActivity_id_dfafc28bd9a2_di" bpmnElement="CallActivity_id_dfafc28bd9a2">
+        <dc:Bounds x="995" y="-90" width="150" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="CallActivity_id_90f8bec1cc24_di" bpmnElement="CallActivity_id_90f8bec1cc24">
+        <dc:Bounds x="980" y="200" width="186" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_id_bc73ee4d0977_di" bpmnElement="Flow_id_bc73ee4d0977">
+        <di:waypoint x="845" y="195" />
+        <di:waypoint x="845" y="-50" />
+        <di:waypoint x="995" y="-50" />
+        <bpmndi:BPMNLabel id="BPMNLabel_28baa7f7-9763-4a82-980a-daa18f1478bb">
+          <dc:Bounds x="855" y="-36" width="74" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_id_afa27b5a7282_di" bpmnElement="Flow_id_afa27b5a7282">
+        <di:waypoint x="845" y="245" />
+        <di:waypoint x="845" y="411" />
+        <di:waypoint x="980" y="411" />
+        <bpmndi:BPMNLabel id="BPMNLabel_556be724-ed58-4929-a4e0-915de3e66a7a">
+          <dc:Bounds x="850" y="325" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_id_9479142c8324_di" bpmnElement="Flow_id_9479142c8324">
+        <di:waypoint x="845" y="245" />
+        <di:waypoint x="845" y="600" />
+        <di:waypoint x="980" y="600" />
+        <bpmndi:BPMNLabel id="BPMNLabel_339fa908-7a24-4d03-aa48-714f7393f2cd">
+          <dc:Bounds x="850" y="500" width="80" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_id_c00ef26f464a_di" bpmnElement="Flow_id_c00ef26f464a">
+        <di:waypoint x="1160" y="411" />
+        <di:waypoint x="1220" y="411" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_id_1d2dd076566a_di" bpmnElement="Flow_id_1d2dd076566a">
+        <di:waypoint x="870" y="220" />
+        <di:waypoint x="930" y="220" />
+        <di:waypoint x="930" y="240" />
+        <di:waypoint x="980" y="240" />
+        <bpmndi:BPMNLabel id="BPMNLabel_727332e6-3ebd-4363-b6d9-5397792c3671">
+          <dc:Bounds x="892" y="220" width="56" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_id_7c7b0e10a22e_di" bpmnElement="Flow_id_7c7b0e10a22e">
+        <di:waypoint x="1166" y="240" />
+        <di:waypoint x="1193" y="240" />
+        <di:waypoint x="1193" y="300" />
+        <di:waypoint x="1220" y="300" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_id_6cf0c3a15689_di" bpmnElement="Flow_id_6cf0c3a15689">
+        <di:waypoint x="1160" y="600" />
+        <di:waypoint x="1220" y="600" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_id_c364f8ae142e_di" bpmnElement="Flow_id_c364f8ae142e">
+        <di:waypoint x="238" y="220" />
+        <di:waypoint x="280" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_id_73ea5d18be6f_di" bpmnElement="Flow_id_73ea5d18be6f">
+        <di:waypoint x="450" y="220" />
+        <di:waypoint x="480" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_id_5c351b711d16_di" bpmnElement="Flow_id_5c351b711d16">
+        <di:waypoint x="530" y="220" />
+        <di:waypoint x="600" y="220" />
+        <bpmndi:BPMNLabel id="BPMNLabel_79dceebf-56c7-4166-b691-831bf487ff31">
+          <dc:Bounds x="550" y="202" width="24" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_id_92453f72c065_di" bpmnElement="Flow_id_92453f72c065">
+        <di:waypoint x="770" y="220" />
+        <di:waypoint x="820" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_id_d33841221067_di" bpmnElement="Flow_id_d33841221067">
+        <di:waypoint x="505" y="245" />
+        <di:waypoint x="505" y="410" />
+        <bpmndi:BPMNLabel id="BPMNLabel_9581ed06-214c-4acc-bcfa-9411da41acb9">
+          <dc:Bounds x="518" y="327" width="19" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_id_fb984ba1911c_di" bpmnElement="Flow_id_fb984ba1911c">
+        <di:waypoint x="505" y="490" />
+        <di:waypoint x="505" y="562" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_id_886c06bfc16b_di" bpmnElement="Flow_id_886c06bfc16b">
+        <di:waypoint x="1945" y="-50" />
+        <di:waypoint x="1995" y="-50" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_id_9a36909b9d57_di" bpmnElement="Flow_id_9a36909b9d57">
+        <di:waypoint x="1745" y="-50" />
+        <di:waypoint x="1795" y="-50" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_id_f758577c798f_di" bpmnElement="Flow_id_f758577c798f">
+        <di:waypoint x="1545" y="-50" />
+        <di:waypoint x="1595" y="-50" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_id_8e1cf75f3cde_di" bpmnElement="Flow_id_8e1cf75f3cde">
+        <di:waypoint x="1345" y="-50" />
+        <di:waypoint x="1395" y="-50" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_id_9fe6ea76561b_di" bpmnElement="Flow_id_9fe6ea76561b">
+        <di:waypoint x="1145" y="-50" />
+        <di:waypoint x="1195" y="-50" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
