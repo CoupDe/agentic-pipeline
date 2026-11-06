@@ -3,37 +3,45 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Конвейер разработки агентами: карта процесса</title>
+<title>Конвейер разработки агентами: BPMN-схема процесса</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 :root{
   --bg:#f6f5f1; --fg:#1d2126; --muted:#5b6470; --line:#d9d6cd; --panel:#fff;
   --accent:#1f5f8b; --accent-soft:#e3eef6; --you:#8a5a00; --you-soft:#fbf0d6;
-  --auto:#3d6b3a; --auto-soft:#e6f0e4; --warn:#9a3b2e; --warn-soft:#f8e6e2;
   --sans:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#161a1f; --fg:#e7e9ec; --muted:#9aa4b0; --line:#30373f; --panel:#1e242b;
-  --accent:#7fb3dc; --accent-soft:#1d2e3c; --you:#e2b45a; --you-soft:#3a2f16;
-  --auto:#8cc287; --auto-soft:#1f3020; --warn:#e08a7b; --warn-soft:#3d2320; color-scheme:dark;
+  --accent:#7fb3dc; --accent-soft:#1d2e3c; --you:#e2b45a; --you-soft:#3a2f16; color-scheme:dark;
 }}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font:15px/1.55 var(--sans);margin:0;padding:28px 16px 56px}
-.wrap{max-width:900px;margin:0 auto}
+.wrap{max-width:1000px;margin:0 auto}
 h1{font-size:26px;margin:0 0 6px}
 h2{font-size:19px;margin:34px 0 10px}
 p{margin:0 0 12px}
 .lead{color:var(--muted)}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:16px 0}
 code{font:13px var(--mono);background:var(--accent-soft);padding:1px 5px;border-radius:4px}
+pre{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow:auto;
+    font:12.5px/1.5 var(--mono)}
 table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px}
 th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
 th{background:var(--accent-soft);font-weight:600}
 a{color:var(--accent)}
-.mermaid{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;margin:14px 0;overflow:auto}
 ul{margin:0 0 12px;padding-left:22px}
 li{margin:4px 0}
 .tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;background:var(--you-soft);color:var(--you);border:1px solid var(--you)}
+.bpmn-wrap{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:14px 0}
+#bpmn{height:640px;width:100%;background:#fff}
+.controls{display:flex;gap:8px;align-items:center;padding:10px 12px;border-top:1px solid var(--line);flex-wrap:wrap}
+.controls button{font:14px var(--sans);padding:5px 12px;border:1px solid var(--line);background:var(--panel);
+  color:var(--fg);border-radius:7px;cursor:pointer}
+.controls button:hover{border-color:var(--accent);color:var(--accent)}
+.controls .hint{color:var(--muted);font-size:13px;margin-left:auto}
+details{margin:14px 0}
+summary{cursor:pointer;color:var(--accent);font-size:14px}
 </style>
 </head>
 <body>
@@ -43,45 +51,52 @@ li{margin:4px 0}
 <p class="lead">Агенты выполняют работу, человек отвечает за намерение и приёмку. Состояние процесса
 живёт в файлах репозитория, поэтому работа переживает падение любой сессии.</p>
 
-<h2>Карта процесса</h2>
+<h2>BPMN-схема процесса</h2>
 <p>Сначала проверяется окружение, затем выбирается контур. Основной путь ведёт от идеи до принятого
 спринта; три остальных контура включаются по ситуации: прогон проверок, восстановление после сбоя
 и обновление базы знаний.</p>
 
-<div class="mermaid">
-flowchart TB
-  S(["Запрос на запуск контура"]) --> DOC["Проверить окружение: agentic doctor"]
-  DOC --> ENV{"Окружение поддерживается?"}
-  ENV -- "Нет" --> FIX["Установить зависимости по официальным инструкциям"]
-  FIX --> E1(["Зависимости установлены, нужна повторная проверка"])
-  ENV -- "Да" --> PROJ["Создать или открыть IT-проект"]
-  PROJ --> LOOP{"Какой контур требуется?"}
-
-  LOOP -- "Основной путь" --> B1["Вести бэклог и эпики"]
-  B1 --> B2["Продуктовое обсуждение"]
-  B2 --> B3["Подготовить Spec Package"]
-  B3 --> B4["Сформировать архитектурный контракт"]
-  B4 --> B5["Согласовать и исполнить спринт"]
-  B5 --> E2(["Спринт исполнен и принят"])
-
-  LOOP -- "Agent Evals" --> Q1["Проверить Agent Evals и controls"]
-  Q1 --> Q2(["Rollout конфигурации решён"])
-
-  LOOP -- "Recovery / Cutover" --> R1["Выполнить Recovery или Cutover"]
-  R1 --> R2(["Command path восстановлен или переключён"])
-
-  LOOP -- "Knowledge Base" --> K1["Развить Knowledge Base и согласовать процесс"]
-  K1 --> K2(["База знаний или политика обновлены"])
-
-  classDef gate fill:#ffffff,stroke:#1d2126,color:#1d2126
-  classDef step fill:#e3eef6,stroke:#1f5f8b,color:#1d2126
-  classDef done fill:#e6f0e4,stroke:#3d6b3a,color:#1d2126
-  classDef human fill:#fbf0d6,stroke:#8a5a00,color:#1d2126
-  class ENV,LOOP gate
-  class DOC,PROJ,B1,B2,B3,B4,B5,Q1,R1,K1 step
-  class E1,E2,Q2,R2,K2 done
-  class FIX human
+<div class="bpmn-wrap">
+  <div id="bpmn"></div>
+  <div class="controls">
+    <button type="button" id="fit">Вписать</button>
+    <button type="button" id="zoom-in">Увеличить</button>
+    <button type="button" id="zoom-out">Уменьшить</button>
+    <span class="hint">Колесо мыши — масштаб, перетаскивание — сдвиг</span>
+  </div>
 </div>
+
+<p>Диаграмма в формате BPMN 2.0: файл <a href="pipeline.bpmn">pipeline.bpmn</a> в этом репозитории.
+Его можно открыть в любом BPMN-редакторе, включая <a href="https://demo.bpmn.io/">bpmn.io</a>.</p>
+
+<details>
+<summary>Исходник схемы в виде Mermaid — для копирования</summary>
+<pre>
+flowchart TB
+  S([Получен запрос на запуск контура]) --> DOC[Проверить окружение]
+  DOC --> ENV{Окружение поддерживается?}
+  ENV -->|Нет| FIX[Установить недостающие зависимости]
+  FIX --> E1([Зависимости установлены])
+  ENV -->|Да| PROJ[Создать или открыть IT-проект]
+  PROJ --> LOOP{Какой контур требуется?}
+
+  LOOP -->|Основной путь| B1[Вести бэклог и эпики]
+  B1 --> B2[Провести продуктовое обсуждение]
+  B2 --> B3[Подготовить Spec Package]
+  B3 --> B4[Сформировать архитектурный контракт]
+  B4 --> B5[Согласовать и исполнить спринт]
+  B5 --> E2([Спринт исполнен и принят])
+
+  LOOP -->|Agent Evals| Q1[Проверить Agent Evals и controls]
+  Q1 --> Q2([Rollout конфигурации решён])
+
+  LOOP -->|Recovery / Cutover| R1[Выполнить Recovery или Cutover]
+  R1 --> R2([Command path восстановлен])
+
+  LOOP -->|Knowledge Base| K1[Развить Knowledge Base]
+  K1 --> K2([Политика обновлена])
+</pre>
+</details>
 
 <h2>Четыре контура</h2>
 <table>
@@ -113,7 +128,7 @@ flowchart TB
 <tr><td>Продакт-агент</td><td>Выясняет потребность и формулирует, что должно получиться</td></tr>
 <tr><td>Архитектор-агент</td><td>Продумывает устройство решения и защиту от рисков</td></tr>
 <tr><td>Оркестратор</td><td>Распределяет работу и следит за порядком шагов</td></tr>
-<tr><td>Agent Supervisor</td><td>Разбирается со сбоями и помогает безопасно продолжить работу</td></tr>
+<tr><td>Agent Supervisor</td><td>Разбирается со сбоями и помогает безопасно продолжать работу</td></tr>
 <tr><td>Куратор-агент</td><td>Собирает уроки и меняет правила работы</td></tr>
 </table>
 
@@ -137,9 +152,38 @@ flowchart TB
 </div>
 
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bpmn-js@17/dist/bpmn-navigated-viewer.production.min.js"></script>
 <script>
-mermaid.initialize({startOnLoad:true, theme:"neutral", flowchart:{curve:"basis", useMaxWidth:true}});
+(function () {
+  var host = document.getElementById('bpmn');
+  var viewer;
+  try {
+    viewer = new BpmnJS({ container: host });
+  } catch (e) {
+    host.innerHTML = '<p style="padding:16px">Не удалось загрузить bpmn-js: ' + e.message + '</p>';
+    return;
+  }
+  function fit() { try { viewer.get('canvas').zoom('fit-viewport'); } catch (e) {} }
+  function zoomBy(step) {
+    try {
+      var canvas = viewer.get('canvas');
+      canvas.zoom(Math.max(0.2, Math.min(4, canvas.zoom() + step)));
+    } catch (e) {}
+  }
+  document.getElementById('fit').addEventListener('click', fit);
+  document.getElementById('zoom-in').addEventListener('click', function () { zoomBy(0.2); });
+  document.getElementById('zoom-out').addEventListener('click', function () { zoomBy(-0.2); });
+
+  fetch('pipeline.bpmn')
+    .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+    .then(function (xml) { return viewer.importXML(xml); })
+    .then(function () { fit(); })
+    .catch(function (err) {
+      host.innerHTML = '<p style="padding:16px">Не удалось отрисовать схему: ' + err.message +
+        '. Файл <a href="pipeline.bpmn">pipeline.bpmn</a> можно открыть в bpmn.io.</p>';
+    });
+})();
 </script>
 </body>
 </html>
