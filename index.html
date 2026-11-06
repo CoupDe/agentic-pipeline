@@ -15,50 +15,55 @@
   <div class="wrap top__in">
     <span class="top__brand">asdlc<b>/</b>schema</span>
     <nav>
-      <a href="#schema">схема</a>
-      <a href="#contours">контуры</a>
-      <a href="#contacts">контакты</a>
+      <a href="#schema" data-i18n="nav.schema">схема</a>
+      <a href="#contours" data-i18n="nav.contours">контуры</a>
+      <a href="#contacts" data-i18n="nav.contacts">контакты</a>
     </nav>
+    <div class="lang" role="group" data-i18n-aria="lang.aria" aria-label="Язык">
+      <button type="button" class="lang__btn" data-lang="ru">ru</button>
+      <span class="lang__sep">/</span>
+      <button type="button" class="lang__btn" data-lang="en">en</button>
+    </div>
   </div>
 </header>
 
 <div class="wrap hero">
   <div>
     <h1>Agentic Software Development Life Cycle <span>/ ASDLC</span></h1>
-    <p>Так я веду разработку: агенты делают работу, человек отвечает за намерение и приёмку.
+    <p data-i18n="hero.lead">Так я веду разработку: агенты делают работу, человек отвечает за намерение и приёмку.
     Состояние процесса лежит в файлах репозитория: один тикет, одна рабочая копия, одна свежая сессия.</p>
-    <p class="path">запрос → проверка окружения → выбор контура → работа → приёмка человеком</p>
+    <p class="path" data-i18n="hero.path">запрос → проверка окружения → выбор контура → работа → приёмка человеком</p>
   </div>
   <div class="butterfly"><ascii-art piece="butterfly"></ascii-art></div>
 </div>
 
 <section id="schema">
   <div class="wrap">
-    <div class="sec-title">схема процесса: шаги, роли, артефакты на входе и выходе</div>
+    <div class="sec-title" data-i18n="schema.title">схема процесса: шаги, роли, артефакты на входе и выходе</div>
 
-    <button type="button" class="schema-open" id="schema-open" aria-label="Открыть схему на весь экран">
-      <img id="schema-img" src="pipeline-editor.svg" width="1528" height="698"
+    <button type="button" class="schema-open" id="schema-open" data-i18n-aria="a11y.open" aria-label="Открыть схему на весь экран">
+      <img id="schema-img" src="pipeline-editor.svg" width="1528" height="698" data-i18n-alt="schema.alt"
            alt="Схема ASDLC: проверка окружения, четыре контура, роли агентов и артефакты каждого шага">
     </button>
 
-    <p class="note">Читается слева направо. Ромб после проверки окружения разводит процесс по четырём контурам:
-    основной путь вверху, ниже прогон проверок, восстановление и обновление базы знаний.
-    <span class="note__hint">клик по схеме — на весь экран</span></p>
+    <p class="note"><span data-i18n="schema.note">Читается слева направо. Ромб после проверки окружения разводит
+    процесс по четырём контурам: основной путь вверху, ниже прогон проверок, восстановление и обновление базы знаний.</span>
+    <span class="note__hint" data-i18n="schema.hint">клик по схеме — на весь экран</span></p>
 
     <div class="contacts" id="contacts">
-      <span class="contacts__title">контакты</span>
+      <span class="contacts__title" data-i18n="contacts.title">контакты</span>
 
       <div class="contact">
-        <span class="contact__role">телефон</span>
+        <span class="contact__role" data-i18n="contact.phone">телефон</span>
         <a class="contact__value" href="tel:+79267528553">+7 926-752-85-53</a>
-        <button type="button" class="contact__copy" data-copy="+79267528553">[скопировать]</button>
+        <button type="button" class="contact__copy" data-copy="+79267528553" data-i18n="contact.copy">[скопировать]</button>
         <span class="contact__tip" role="status" aria-live="polite"></span>
       </div>
 
       <div class="contact">
-        <span class="contact__role">почта</span>
+        <span class="contact__role" data-i18n="contact.email">почта</span>
         <a class="contact__value" href="mailto:a.ttroy@yandex.ru">a.ttroy@yandex.ru</a>
-        <button type="button" class="contact__copy" data-copy="a.ttroy@yandex.ru">[скопировать]</button>
+        <button type="button" class="contact__copy" data-copy="a.ttroy@yandex.ru" data-i18n="contact.copy">[скопировать]</button>
         <span class="contact__tip" role="status" aria-live="polite"></span>
       </div>
     </div>
@@ -67,28 +72,28 @@
 
 <section id="contours">
   <div class="wrap">
-    <div class="sec-title">четыре контура</div>
+    <div class="sec-title" data-i18n="contours.title">четыре контура</div>
     <table>
-      <tr><th>контур</th><th>что происходит</th></tr>
+      <tr><th data-i18n="table.loop">контур</th><th data-i18n="table.what">что происходит</th></tr>
       <tr>
-        <td>основной путь</td>
-        <td>инициатива → эпик → Spec Package → архитектурный контракт → принятый спринт</td>
+        <td data-i18n="row.main">основной путь</td>
+        <td data-i18n="row.main.text">инициатива → эпик → Spec Package → архитектурный контракт → принятый спринт</td>
       </tr>
       <tr>
-        <td>agent evals</td>
-        <td>сменились промпты или проверки: прогон до раскатки конфигурации</td>
+        <td data-i18n="row.evals">agent evals</td>
+        <td data-i18n="row.evals.text">сменились промпты или проверки: прогон до раскатки конфигурации</td>
       </tr>
       <tr>
-        <td>recovery / cutover</td>
-        <td>сбой или переезд: путь восстановлен либо переключён</td>
+        <td data-i18n="row.recovery">recovery / cutover</td>
+        <td data-i18n="row.recovery.text">сбой или переезд: путь восстановлен либо переключён</td>
       </tr>
       <tr>
-        <td>knowledge base</td>
-        <td>накопились уроки: правила и политика обновлены</td>
+        <td data-i18n="row.kb">knowledge base</td>
+        <td data-i18n="row.kb.text">накопились уроки: правила и политика обновлены</td>
       </tr>
     </table>
-    <p class="note">Роли на схеме: человек, продакт-агент, архитектор-агент, оркестратор, agent supervisor,
-    куратор-агент. Артефакты шага — файлы: <code>intent.md</code>, <code>spec.md</code>,
+    <p class="note" data-i18n="contours.note">Роли на схеме: человек, продакт-агент, архитектор-агент, оркестратор,
+    agent supervisor, куратор-агент. Артефакты шага — файлы: <code>intent.md</code>, <code>spec.md</code>,
     <code>Constraint Register</code>, <code>Architecture Contract</code>, <code>ADR</code>.
     Не на диске — значит, шага не было.</p>
   </div>
@@ -96,22 +101,24 @@
 
 <footer>
   <div class="wrap">
-    <p>Схема: BPMN 2.0, выгружена из редактора. Бабочка: <a href="https://ascii.rest/butterfly/">ascii.rest</a>, MIT.</p>
-    <p>Название продукта, имена папок, локальные пути и данные заказчика заменены на нейтральные.</p>
+    <p data-i18n="footer.schema">Схема: BPMN 2.0, выгружена из редактора.
+    Бабочка: <a href="https://ascii.rest/butterfly/">ascii.rest</a>, MIT.</p>
+    <p data-i18n="footer.scrub">Название продукта, имена папок, локальные пути и данные заказчика заменены на нейтральные.</p>
   </div>
 </footer>
 
 <div class="lightbox" id="lightbox" hidden>
   <div class="lightbox__bar">
-    <span class="lightbox__title">схема процесса</span>
+    <span class="lightbox__title" data-i18n="lb.title">схема процесса</span>
+    <span class="lightbox__hint" data-i18n="lb.hint">ctrl + колесо — масштаб, перетаскивание — сдвиг</span>
     <span class="lightbox__zoom" id="lightbox-zoom">100%</span>
-    <button type="button" class="lb-btn" data-zoom="out" aria-label="Отдалить">[−]</button>
-    <button type="button" class="lb-btn" data-zoom="in" aria-label="Приблизить">[+]</button>
-    <button type="button" class="lb-btn" data-zoom="reset">[сбросить]</button>
-    <button type="button" class="lb-btn lb-btn--close" data-close aria-label="Закрыть">[×]</button>
+    <button type="button" class="lb-btn" data-zoom="out" data-i18n-aria="a11y.zoomOut" aria-label="Отдалить">[−]</button>
+    <button type="button" class="lb-btn" data-zoom="in" data-i18n-aria="a11y.zoomIn" aria-label="Приблизить">[+]</button>
+    <button type="button" class="lb-btn" data-zoom="reset" data-i18n="lb.reset">[сбросить]</button>
+    <button type="button" class="lb-btn lb-btn--close" data-close data-i18n-aria="a11y.close" aria-label="Закрыть">[×]</button>
   </div>
   <div class="lightbox__stage" id="lightbox-stage">
-    <img id="lightbox-img" src="pipeline-editor.svg"
+    <img id="lightbox-img" src="pipeline-editor.svg" data-i18n-alt="lb.alt"
          alt="Схема ASDLC в полном размере: четыре контура, роли и артефакты">
   </div>
 </div>
