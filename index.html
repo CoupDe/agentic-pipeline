@@ -3,282 +3,117 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Конвейер разработки агентами — карта процесса</title>
-<meta name="description" content="Как устроена разработка агентами: роли, четыре контура, входы и выходы каждого шага, гейты и роутинг моделей. Схема процесса в BPMN 2.0.">
+<title>ASDLC — схема процесса</title>
+<meta name="description" content="Agentic Software Development Life Cycle: схема процесса в BPMN 2.0. Агенты делают работу, человек отвечает за намерение и приёмку.">
 <meta name="color-scheme" content="dark">
-<meta property="og:title" content="Конвейер разработки агентами — карта процесса">
-<meta property="og:description" content="Роли, четыре контура, входы и выходы каждого шага, гейты и роутинг моделей.">
-<meta property="og:type" content="website">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<a class="skip" href="#main">К содержанию</a>
+<a class="skip" href="#schema">К схеме</a>
 
 <header class="top">
   <div class="wrap top__in">
-    <span class="brand">конвейер<i>.</i>агенты</span>
-    <nav class="nav" aria-label="Разделы">
-      <a href="#map">Карта</a>
-      <a href="#contours">Контуры</a>
-      <a href="#roles">Роли</a>
-      <a href="#gates">Гейты</a>
-      <a href="#files">Скачать</a>
-      <a href="operations.html">Операционная карта</a>
+    <span class="top__brand">asdlc<b>/</b>schema</span>
+    <nav>
+      <a href="#schema">схема</a>
+      <a href="#contours">контуры</a>
+      <a href="#files">файлы</a>
+      <a href="operations.html">операционная карта</a>
     </nav>
   </div>
 </header>
 
-<main id="main">
-
 <div class="wrap hero">
-  <span class="eyebrow">агенты работают, человек отвечает за намерение и приёмку</span>
-  <h1>Разработка, где работу ведут агенты,<br>а решение остаётся за <em>человеком</em></h1>
-  <p class="lead">Состояние процесса живёт в файлах репозитория, поэтому работа переживает падение
-  любой сессии: один тикет — одна рабочая копия — одна свежая сессия. Ниже — реальная схема этого
-  конвейера: кто ведёт каждый шаг, что на входе, что на выходе и чем закрыты обязательные шаги.</p>
-  <div class="cta">
-    <a class="btn btn--primary" href="#map">Смотреть карту конвейера</a>
-    <a class="btn" href="pipeline.bpmn" download>Скачать схему в BPMN 2.0</a>
+  <div>
+    <h1>Agentic Software Development Life Cycle <span>/ ASDLC</span></h1>
+    <p>Так я веду разработку: агенты делают работу, человек отвечает за намерение и приёмку.
+    Состояние процесса лежит в файлах репозитория: один тикет, одна рабочая копия, одна свежая сессия.
+    Ниже эта схема в BPMN 2.0.</p>
+    <p class="path">запрос → проверка окружения → выбор контура → работа → приёмка человеком</p>
   </div>
-
-  <div class="stats">
-    <div class="stat"><b data-count="contours">4</b><span>контура: основной путь и три ветки</span></div>
-    <div class="stat"><b data-count="roles">6</b><span>ролей на схеме: агенты и человек</span></div>
-    <div class="stat"><b data-count="steps">14</b><span>шагов процесса</span></div>
-    <div class="stat"><b data-count="assets">42</b><span>артефактов на входах и выходах</span></div>
-  </div>
+  <div class="butterfly"><ascii-art piece="butterfly"></ascii-art></div>
 </div>
 
-<section id="map">
+<section id="schema">
   <div class="wrap">
-    <div class="sec-head"><span class="num">01</span><h2>Карта конвейера</h2></div>
-    <p>Каждый шаг — карточка: кто его ведёт и какие артефакты он берёт и оставляет. Нажмите на шаг,
-    чтобы увидеть полный список входов, выходов и плейбуков.</p>
-
-    <div class="legend">
-      <span><i class="chip__dir" style="--c:#8fa3b6">вход</i> берётся на этом шаге</span>
-      <span><i class="chip__dir" style="--c:#8fa3b6">выход</i> появляется на диске</span>
-      <span><i class="chip__dir" style="--c:#8fa3b6">связь</i> привязан к шагу без направления</span>
-      <span><i class="chip__dir" style="--c:#8fa3b6">плейбук</i> используется повторно</span>
-      <span>цвет плашки — категория артефакта, как в исходной схеме</span>
+    <div class="sec-title">схема процесса, 37 элементов, 18 связей</div>
+    <div class="frame">
+      <div id="bpmn"></div>
+      <div class="bar">
+        <button type="button" id="bpmn-replay">[проиграть снова]</button>
+        <span class="sep">·</span>
+        <button type="button" id="bpmn-fit">[вписать]</button>
+        <button type="button" id="bpmn-in">[+]</button>
+        <button type="button" id="bpmn-out">[−]</button>
+        <span class="right">колесо — масштаб, перетаскивание — сдвиг</span>
+      </div>
     </div>
-
-    <div class="paths" id="paths"></div>
-    <div class="detail" id="step-detail" hidden></div>
+    <p class="note">Читается слева направо. Ромб после проверки окружения разводит процесс по четырём контурам:
+    основной путь вверху, ниже прогон проверок, восстановление и обновление базы знаний.</p>
+    <div class="links">
+      <a href="pipeline.bpmn" download>[схема в BPMN 2.0]</a>
+      <a href="pipeline-scheme.pdf">[PDF, лист A4]</a>
+      <a href="pipeline-scheme.png">[PNG]</a>
+    </div>
   </div>
 </section>
 
 <section id="contours">
   <div class="wrap">
-    <div class="sec-head"><span class="num">02</span><h2>Четыре контура</h2></div>
-    <p>Основной путь доводит идею до принятого спринта. Остальные три включаются по ситуации
-    и возвращают конвейер в рабочее состояние.</p>
-    <div class="table scroll-x">
-      <table>
-        <tr><th>Контур</th><th>Когда включается</th><th>Чем заканчивается</th></tr>
-        <tr><td>Основной путь</td><td>Новая идея или задача в продукт</td><td>Спринт исполнен и принят</td></tr>
-        <tr><td>Agent Evals</td><td>Меняются агентная конфигурация, промпты или проверки</td><td>Решение о раскатке конфигурации</td></tr>
-        <tr><td>Recovery / Cutover</td><td>Сбой, потеря пути исполнения, переход на новый контур</td><td>Путь восстановлен или переключён</td></tr>
-        <tr><td>Knowledge Base</td><td>Накопились уроки, пора менять правила и политику</td><td>База знаний или политика обновлены</td></tr>
-      </table>
-    </div>
-
-    <div class="grid2" style="margin-top:22px">
-      <div class="card">
-        <h3>Основной путь по шагам</h3>
-        <ul>
-          <li><strong>Бэклог и эпики.</strong> Инициатива превращается в эпик: зачем нужна, что входит,
-          кто владелец, какие ограничения и критерии готовности. Итог — документ намерения <code>intent.md</code>.</li>
-          <li><strong>Продуктовое обсуждение.</strong> Потребность выясняется до формы решения:
-          для кого делаем, какая польза, что вне границ.</li>
-          <li><strong>Spec Package.</strong> Требования, решения и открытые вопросы собираются в пакет,
-          по которому можно планировать.</li>
-          <li><strong>Архитектурный контракт.</strong> Устройство решения и защита от рисков фиксируются
-          контрактом, а не устной договорённостью.</li>
-          <li><strong>Согласование и исполнение спринта.</strong> Работа режется на проверяемые порции,
-          каждая доводится до готовности и принимается владельцем.</li>
-        </ul>
-      </div>
-      <div class="note">
-        <p>Окружение проверяется до выбора контура. Если обязательного инструмента нет, конвейер
-        не импровизирует: он останавливается на установке зависимостей по официальным инструкциям
-        и требует повторной проверки.</p>
-        <p style="margin:0">Артефакты на схеме — это файлы: <code>intent.md</code>, <code>spec.md</code>,
-        <code>Constraint Register</code>, <code>Architecture Contract</code>, <code>ADR</code>.
-        Пока их нет на диске, шаг не считается сделанным.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="roles">
-  <div class="wrap">
-    <div class="sec-head"><span class="num">03</span><h2>Кто участвует</h2></div>
-    <p>Роль выбирается на шаг, а не на запрос. Верхние роли работают на сильных моделях,
-    исполнение — на быстрой кодинг-модели.</p>
-    <div class="cards">
-      <div class="card">
-        <h3><span class="role-dot" style="--c:#f0a35e"></span>Human, владелец решения</h3>
-        <p>Объясняет, что нужно, утверждает границы и принимает результат. Единственный, кто может
-        закрыть спорный вопрос.</p>
-      </div>
-      <div class="card">
-        <h3><span class="role-dot" style="--c:#5aa9f8"></span>Продакт-агент</h3>
-        <p>Выясняет потребность и формулирует, что должно получиться: эпик, Product Brief,
-        Acceptance Criteria, Domain Model, Spec Package.</p>
-      </div>
-      <div class="card">
-        <h3><span class="role-dot" style="--c:#a78bfa"></span>Архитектор-агент</h3>
-        <p>Продумывает устройство решения и защиту от рисков: Architecture Contract, ADR,
-        Control Policy, Evidence Pack.</p>
-      </div>
-      <div class="card">
-        <h3><span class="role-dot" style="--c:#2dd4bf"></span>Оркестратор</h3>
-        <p>Распределяет работу и следит за порядком шагов: проверка окружения, создание проекта,
-        согласование и исполнение спринта.</p>
-      </div>
-      <div class="card">
-        <h3><span class="role-dot" style="--c:#5fd39a"></span>Agent Supervisor</h3>
-        <p>Разбирается со сбоями и возвращает конвейер в работу: Recovery, Cutover,
-        работа с Crash Matrix.</p>
-      </div>
-      <div class="card">
-        <h3><span class="role-dot" style="--c:#f472b6"></span>Куратор-агент</h3>
-        <p>Собирает уроки и меняет правила работы: Knowledge Base, Process Alignment Policy.</p>
-      </div>
-    </div>
-    <p style="margin-top:16px"><a href="operations.html">Полная операционная карта: семь ролей,
-    путь тикета, сигналы эскалации, пороги контекста →</a></p>
-  </div>
-</section>
-
-<section id="gates">
-  <div class="wrap">
-    <div class="sec-head"><span class="num">04</span><h2>Что закрыто механизмом, а не договорённостью</h2></div>
-    <div class="cards">
-      <div class="card">
-        <h3>Обязательный шаг нельзя пропустить</h3>
-        <p>Ни уверенность агента, ни желание ускориться не отменяют шаг: он закрывается хуком
-        или тестом, а не обещанием.</p>
-      </div>
-      <div class="card">
-        <h3>Ограждение не обходят молча</h3>
-        <p>Исключение требует явного решения и фиксируется — вместе с тем, кто его принял.</p>
-      </div>
-      <div class="card">
-        <h3>Каждый переход оставляет запись</h3>
-        <p>Структурированное событие: кто действовал, что изменилось, чем подтверждено.
-        Есть trace ID, по нему поднимается вся история.</p>
-      </div>
-      <div class="card">
-        <h3>Результат есть только на диске</h3>
-        <p>Доклад в чате не считается результатом. Нет файла — значит, работы не было.</p>
-      </div>
-    </div>
-
-    <div class="grid2" style="margin-top:22px">
-      <div class="card">
-        <h3>Роутинг моделей</h3>
-        <p>Модель выбирается на сессию, а не на запрос: роль задаёт модель и профиль, конвейер режет
-        работу на сессии. Верхние роли работают на Claude Code и Kimi Code, исполнение — на кодинг-модели.
-        Фаза «план» у воркера идёт на верхней модели, реализация — на дешёвой: продолжения съедают
-        основную часть токенов, и верхняя модель там не нужна.</p>
-      </div>
-      <div class="card">
-        <h3>Пороги и эскалация</h3>
-        <p>Контекст сессии — 35% на предупреждение и 45% на остановку: дальше работа передаётся
-        следующей сессии через хендофф. Эскалация к человеку включается на двух провалах подряд,
-        двух неудачных попытках, красных тестах или миграциях без ADR.</p>
-      </div>
-    </div>
+    <div class="sec-title">четыре контура</div>
+    <table>
+      <tr><th>контур</th><th>что происходит</th></tr>
+      <tr>
+        <td>основной путь</td>
+        <td>инициатива → эпик → Spec Package → архитектурный контракт → принятый спринт</td>
+      </tr>
+      <tr>
+        <td>agent evals</td>
+        <td>сменились промпты или проверки: прогон до раскатки конфигурации</td>
+      </tr>
+      <tr>
+        <td>recovery / cutover</td>
+        <td>сбой или переезд: путь восстановлен либо переключён</td>
+      </tr>
+      <tr>
+        <td>knowledge base</td>
+        <td>накопились уроки: правила и политика обновлены</td>
+      </tr>
+    </table>
+    <p class="note">Роли на схеме: человек, продакт-агент, архитектор-агент, оркестратор, agent supervisor,
+    куратор-агент. Артефакты шага — файлы: <code>intent.md</code>, <code>spec.md</code>,
+    <code>Constraint Register</code>, <code>Architecture Contract</code>, <code>ADR</code>.
+    Не на диске — значит, шага не было.</p>
   </div>
 </section>
 
 <section id="files">
   <div class="wrap">
-    <div class="sec-head"><span class="num">05</span><h2>Схема и файлы</h2></div>
-    <p>Схема ведётся в BPMN-редакторе и выгружается как есть: файл открывается в любом BPMN-редакторе,
-    включая <a href="https://demo.bpmn.io/">bpmn.io</a>.</p>
-
-    <div class="dl">
-      <a href="pipeline.bpmn" download><b>pipeline.bpmn</b><span>BPMN 2.0 · 37 элементов, 18 связей · машиночитаемо</span></a>
-      <a href="pipeline-scheme.pdf"><b>Схема одним листом, PDF</b><span>A4 альбомная · для письма и презентации</span></a>
-      <a href="pipeline-scheme.png"><b>Схема, PNG</b><span>2000 × 841 · для мессенджера</span></a>
-      <a href="pipeline-steps.json"><b>pipeline-steps.json</b><span>шаги, роли, артефакты · данные этой страницы</span></a>
+    <div class="sec-title">файлы и что дальше</div>
+    <div class="links">
+      <a href="pipeline.bpmn" download>[pipeline.bpmn]</a>
+      <a href="pipeline-scheme.pdf">[pipeline-scheme.pdf]</a>
+      <a href="pipeline-scheme.png">[pipeline-scheme.png]</a>
+      <a href="operations.html">[операционная карта: роли, гейты, роутинг моделей]</a>
+      <a href="README.md">[README]</a>
     </div>
-
-    <details id="bpmn-toggle">
-      <summary>Открыть схему как BPMN (bpmn-js)</summary>
-      <div class="details__body" style="padding:0">
-        <div id="bpmn"></div>
-        <div class="bpmn-controls">
-          <button type="button" class="btn" id="bpmn-fit">Вписать</button>
-          <span class="hint">Колесо мыши — масштаб · подпись bpmn.io скрыта, атрибуция в подвале</span>
-        </div>
-      </div>
-    </details>
-
     <details>
-      <summary>Точная копия из редактора (SVG, 1,9 МБ)</summary>
-      <div class="details__body">
-        <p class="lead">Так схема выглядит в редакторе: все плашки и роли на своих местах.
-        Файл тяжёлый, поэтому грузится только сейчас.</p>
-        <img src="pipeline-editor.svg" alt="Схема конвейера из редактора: шаги, роли и артефакты" loading="lazy" decoding="async" width="1528" height="698">
-      </div>
-    </details>
-
-    <details>
-      <summary>Та же схема в виде Mermaid — упрощённо, для копирования</summary>
-      <div class="details__body">
-<pre>flowchart TB
-  S([Получен запрос на запуск контура]) --&gt; DOC[Проверить окружение]
-  DOC --&gt; ENV{Окружение поддерживается?}
-  ENV --&gt;|Нет| FIX[Установить недостающие зависимости]
-  FIX --&gt; E1([Зависимости установлены; требуется повторная проверка])
-  ENV --&gt;|Да| PROJ[Создать или открыть IT-проект]
-  PROJ --&gt; LOOP{Какой контур требуется?}
-
-  LOOP --&gt;|Основной путь| B1[Вести бэклог и эпики]
-  B1 --&gt; B2[Провести продуктовое обсуждение]
-  B2 --&gt; B3[Подготовить Spec Package]
-  B3 --&gt; B4[Сформировать архитектурный контракт]
-  B4 --&gt; B5[Согласовать и исполнить спринт]
-  B5 --&gt; E2([Спринт исполнен и принят])
-
-  LOOP --&gt;|Agent Evals| Q1[Проверить Agent Evals и controls]
-  Q1 --&gt; Q2([Rollout агентной конфигурации решён])
-
-  LOOP --&gt;|Recovery / Cutover| R1[Выполнить Recovery или Cutover]
-  R1 --&gt; R2([Command path восстановлен или переключён])
-
-  LOOP --&gt;|Knowledge Base| K1[Развить Knowledge Base и согласовать процесс]
-  K1 --&gt; K2([Knowledge Base или политика обновлены])</pre>
-      </div>
+      <summary>схема как в редакторе, с плашками артефактов (SVG, 1,9 МБ)</summary>
+      <img src="pipeline-editor.svg" alt="Схема ASDLC из редактора: шаги, роли и артефакты" loading="lazy" decoding="async" width="1528" height="698">
     </details>
   </div>
 </section>
 
-</main>
-
-<footer class="foot">
+<footer>
   <div class="wrap">
-    <div class="foot__links">
-      <a href="operations.html">Операционная карта</a>
-      <a href="pipeline.bpmn">pipeline.bpmn</a>
-      <a href="pipeline-scheme.pdf">PDF</a>
-      <a href="README.md">README</a>
-    </div>
-    <p><strong>Об этом описании.</strong> Название продукта, имена папок, локальные пути
-    и данные заказчика заменены на нейтральные или убраны. Модели: верхние роли работают
-    на Claude Code и Kimi Code, исполнение — на кодинг-модели.</p>
-    <p>Отрисовка схемы — <a href="https://github.com/bpmn-io/bpmn-js">bpmn-js</a> (MIT),
-    шрифт — IBM Plex. Страница статическая, без аналитики и трекеров.</p>
+    <p>Бабочка: <a href="https://ascii.rest/butterfly/">ascii.rest</a>, MIT. Схема: BPMN 2.0, отрисовка
+    <a href="https://github.com/bpmn-io/bpmn-js">bpmn-js</a>, MIT.</p>
+    <p>Название продукта, имена папок, локальные пути и данные заказчика заменены на нейтральные.</p>
   </div>
 </footer>
 
+<script type="module" src="https://ascii.rest/ascii.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bpmn-js@17/dist/bpmn-navigated-viewer.production.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
