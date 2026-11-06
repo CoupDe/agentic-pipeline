@@ -1,0 +1,415 @@
+{
+ "steps": [
+  {
+   "id": "CallActivity_id_dfafc28bd9a2",
+   "name": "Вести бэклог и эпики",
+   "type": "callActivity",
+   "role": "Продакт-агент",
+   "assets": [
+    {
+     "name": "Инициатива",
+     "dir": "in",
+     "color": "#2563eb"
+    },
+    {
+     "name": "Эпик",
+     "dir": "out",
+     "color": "#2563eb"
+    },
+    {
+     "name": "agentic-sdlc-initial-fragments.md",
+     "dir": "in",
+     "color": "#2563eb"
+    },
+    {
+     "name": "intent.md",
+     "dir": "out",
+     "color": "#dc2626"
+    },
+    {
+     "name": "Constraint Register",
+     "dir": "out",
+     "color": "#dc2626"
+    },
+    {
+     "name": "agentic-sdlc-playbook.md",
+     "dir": "replay",
+     "color": "#0f766e"
+    }
+   ]
+  },
+  {
+   "id": "CallActivity_id_fadc5f147aeb",
+   "name": "Провести продуктовое обсуждение",
+   "type": "callActivity",
+   "role": "Продакт-агент",
+   "assets": [
+    {
+     "name": "Эпик",
+     "dir": "in",
+     "color": "#2563eb"
+    },
+    {
+     "name": "Product Brief",
+     "dir": "out",
+     "color": "#2563eb"
+    },
+    {
+     "name": "Acceptance Criteria",
+     "dir": "out",
+     "color": "#2563eb"
+    },
+    {
+     "name": "Domain Model",
+     "dir": "out",
+     "color": "#2563eb"
+    },
+    {
+     "name": "agentic-sdlc-initial-fragments.md",
+     "dir": "in",
+     "color": "#2563eb"
+    },
+    {
+     "name": "intent.md",
+     "dir": "in",
+     "color": "#dc2626"
+    },
+    {
+     "name": "Constraint Register",
+     "dir": "both",
+     "color": "#dc2626"
+    },
+    {
+     "name": "agentic-sdlc-playbook.md",
+     "dir": "replay",
+     "color": "#0f766e"
+    }
+   ]
+  },
+  {
+   "id": "CallActivity_id_7e5f0c79b3fd",
+   "name": "Согласовать и исполнить спринт",
+   "type": "callActivity",
+   "role": "Оркестратор",
+   "assets": [
+    {
+     "name": "Operation Registry",
+     "dir": "both",
+     "color": "#dc2626"
+    },
+    {
+     "name": "Sprint Contract",
+     "dir": "both",
+     "color": "#2563eb"
+    },
+    {
+     "name": "Conveyor Manifest",
+     "dir": "in",
+     "color": "#0f766e"
+    }
+   ]
+  },
+  {
+   "id": "CallActivity_id_90f8bec1cc24",
+   "name": "Проверить Agent Evals и controls",
+   "type": "callActivity",
+   "role": "Архитектор-агент",
+   "assets": [
+    {
+     "name": "Evidence Pack",
+     "dir": "out",
+     "color": "#7c3aed"
+    },
+    {
+     "name": "Constraint Register",
+     "dir": "in",
+     "color": "#dc2626"
+    }
+   ]
+  },
+  {
+   "id": "CallActivity_id_e3cd6a3c93b9",
+   "name": "Развить Knowledge Base и согласовать процесс",
+   "type": "callActivity",
+   "role": "Куратор-агент",
+   "assets": [
+    {
+     "name": "Knowledge Base",
+     "dir": "both",
+     "color": "#0f766e"
+    },
+    {
+     "name": "Process Alignment Policy",
+     "dir": "both",
+     "color": "#dc2626"
+    }
+   ]
+  },
+  {
+   "id": "ServiceTask_id_4bd22721841c",
+   "name": "Проверить окружение через agentic doctor",
+   "type": "serviceTask",
+   "role": "Оркестратор",
+   "assets": [
+    {
+     "name": "agentic-sdlc-playbook.md",
+     "dir": "replay",
+     "color": "#0f766e"
+    }
+   ]
+  },
+  {
+   "id": "ExclusiveGateway_id_799a80bee65c",
+   "name": "Окружение поддерживается?",
+   "type": "exclusiveGateway",
+   "role": null,
+   "assets": []
+  },
+  {
+   "id": "UserTask_id_b52c8f4b3643",
+   "name": "Установить недостающие зависимости по официальным инструкциям",
+   "type": "userTask",
+   "role": "Human",
+   "assets": [
+    {
+     "name": "agentic-sdlc-playbook.md",
+     "dir": "replay",
+     "color": "#0f766e"
+    }
+   ]
+  },
+  {
+   "id": "EndEvent_id_0ca813f61f6e",
+   "name": "Зависимости установлены; требуется повторная проверка",
+   "type": "endEvent",
+   "role": null,
+   "assets": []
+  },
+  {
+   "id": "ExclusiveGateway_id_2a1c3ec61d30",
+   "name": "Какой контур требуется?",
+   "type": "exclusiveGateway",
+   "role": null,
+   "assets": []
+  },
+  {
+   "id": "CallActivity_id_24354a969e6b",
+   "name": "Подготовить Spec Package",
+   "type": "callActivity",
+   "role": "Продакт-агент",
+   "assets": [
+    {
+     "name": "Product Brief",
+     "dir": "in",
+     "color": "#2563eb"
+    },
+    {
+     "name": "Acceptance Criteria",
+     "dir": "in",
+     "color": "#2563eb"
+    },
+    {
+     "name": "Domain Model",
+     "dir": "in",
+     "color": "#2563eb"
+    },
+    {
+     "name": "Spec Package",
+     "dir": "out",
+     "color": "#2563eb"
+    },
+    {
+     "name": "agentic-sdlc-initial-fragments.md",
+     "dir": "in",
+     "color": "#2563eb"
+    },
+    {
+     "name": "Constraint Register",
+     "dir": "both",
+     "color": "#dc2626"
+    },
+    {
+     "name": "spec.md",
+     "dir": "out",
+     "color": "#dc2626"
+    },
+    {
+     "name": "agentic-sdlc-playbook.md",
+     "dir": "replay",
+     "color": "#0f766e"
+    }
+   ]
+  },
+  {
+   "id": "CallActivity_id_2ed8736a2565",
+   "name": "Сформировать архитектурный контракт",
+   "type": "callActivity",
+   "role": "Архитектор-агент",
+   "assets": [
+    {
+     "name": "Spec Package",
+     "dir": "in",
+     "color": "#2563eb"
+    },
+    {
+     "name": "Architecture Contract",
+     "dir": "out",
+     "color": "#2563eb"
+    },
+    {
+     "name": "ADR",
+     "dir": "out",
+     "color": "#2563eb"
+    },
+    {
+     "name": "agentic-sdlc-initial-fragments.md",
+     "dir": "in",
+     "color": "#2563eb"
+    },
+    {
+     "name": "spec.md",
+     "dir": "in",
+     "color": "#dc2626"
+    },
+    {
+     "name": "Constraint Register",
+     "dir": "both",
+     "color": "#dc2626"
+    },
+    {
+     "name": "Control Policy",
+     "dir": "out",
+     "color": "#dc2626"
+    },
+    {
+     "name": "agentic-sdlc-playbook.md",
+     "dir": "replay",
+     "color": "#0f766e"
+    }
+   ]
+  },
+  {
+   "id": "CallActivity_id_b310d0b86319",
+   "name": "Выполнить Recovery или Cutover",
+   "type": "callActivity",
+   "role": "Agent Supervisor",
+   "assets": [
+    {
+     "name": "Crash Matrix",
+     "dir": "in",
+     "color": "#dc2626"
+    },
+    {
+     "name": "Cutover Manifest",
+     "dir": "both",
+     "color": "#7c3aed"
+    }
+   ]
+  },
+  {
+   "id": "ServiceTask_id_93a4e8392361",
+   "name": "Создать или открыть IT-проект",
+   "type": "serviceTask",
+   "role": "Оркестратор",
+   "assets": [
+    {
+     "name": "agentic-sdlc-playbook.md",
+     "dir": "replay",
+     "color": "#0f766e"
+    }
+   ]
+  }
+ ],
+ "flows": [
+  {
+   "from": "Какой контур требуется?",
+   "to": "Вести бэклог и эпики",
+   "label": "Основной путь"
+  },
+  {
+   "from": "Какой контур требуется?",
+   "to": "Выполнить Recovery или Cutover",
+   "label": "Recovery / Cutover"
+  },
+  {
+   "from": "Какой контур требуется?",
+   "to": "Развить Knowledge Base и согласовать процесс",
+   "label": "Knowledge Base"
+  },
+  {
+   "from": "Выполнить Recovery или Cutover",
+   "to": "Command path восстановлен или переключён",
+   "label": ""
+  },
+  {
+   "from": "Какой контур требуется?",
+   "to": "Проверить Agent Evals и controls",
+   "label": "Agent Evals"
+  },
+  {
+   "from": "Проверить Agent Evals и controls",
+   "to": "Rollout агентной конфигурации решён",
+   "label": ""
+  },
+  {
+   "from": "Развить Knowledge Base и согласовать процесс",
+   "to": "Knowledge Base или политика обновлены",
+   "label": ""
+  },
+  {
+   "from": "Получен запрос на запуск процессного контура",
+   "to": "Проверить окружение через agentic doctor",
+   "label": ""
+  },
+  {
+   "from": "Проверить окружение через agentic doctor",
+   "to": "Окружение поддерживается?",
+   "label": ""
+  },
+  {
+   "from": "Окружение поддерживается?",
+   "to": "Создать или открыть IT-проект",
+   "label": "Да"
+  },
+  {
+   "from": "Создать или открыть IT-проект",
+   "to": "Какой контур требуется?",
+   "label": ""
+  },
+  {
+   "from": "Окружение поддерживается?",
+   "to": "Установить недостающие зависимости по официальным инструкциям",
+   "label": "Нет"
+  },
+  {
+   "from": "Установить недостающие зависимости по официальным инструкциям",
+   "to": "Зависимости установлены; требуется повторная проверка",
+   "label": ""
+  },
+  {
+   "from": "Согласовать и исполнить спринт",
+   "to": "Спринт исполнен и принят",
+   "label": ""
+  },
+  {
+   "from": "Сформировать архитектурный контракт",
+   "to": "Согласовать и исполнить спринт",
+   "label": ""
+  },
+  {
+   "from": "Подготовить Spec Package",
+   "to": "Сформировать архитектурный контракт",
+   "label": ""
+  },
+  {
+   "from": "Провести продуктовое обсуждение",
+   "to": "Подготовить Spec Package",
+   "label": ""
+  },
+  {
+   "from": "Вести бэклог и эпики",
+   "to": "Провести продуктовое обсуждение",
+   "label": ""
+  }
+ ]
+}

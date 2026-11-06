@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,12 +28,12 @@
   color-scheme: dark;
 } }
 :root[data-theme="dark"] {
-  --bg: #161a1f; --fg: #e7e9ec; --muted: #9aa4b0; --line: #30373f; --panel: #1e242b;
-  --accent: #7fb3dc; --accent-soft: #1d2e3c;
+  --bg: #0a0e13; --bg-soft: #0d131a; --fg: #e8eef5; --muted: #93a6b8; --line: #22303d; --panel: #111a23;
+  --accent: #5aa9f8; --accent-soft: #16283a;
   --you: #e2b45a; --you-soft: #3a2f16;
-  --orch: #7fb3dc; --orch-soft: #1d2e3c;
-  --auto: #8cc287; --auto-soft: #1f3020;
-  --warn: #e08a7b; --warn-soft: #3d2320;
+  --orch: #5aa9f8; --orch-soft: #16283a;
+  --auto: #5fd39a; --auto-soft: #152a20;
+  --warn: #f0a35e; --warn-soft: #3a1f1c;
   color-scheme: dark;
 }
 body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--sans);
@@ -73,12 +73,13 @@ tr:last-child td { border-bottom: 0; }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
 </head>
 <body>
-<div style="max-width:900px;margin:0 auto 24px;padding:14px 18px;border:1px solid var(--line);border-radius:10px;background:var(--panel)">
+<div style="max-width:900px;margin:0 auto 24px;padding:14px 18px;border:1px solid var(--line);border-radius:12px;background:var(--panel)">
 <p style="margin:0 0 8px"><strong>Обобщённое описание процесса.</strong> Название продукта, имена папок
 и локальные пути заменены на нейтральные. Так выглядит конвейер, по которому я веду разработку:
 агентские роли, гейты, эскалация и роутинг моделей.</p>
-<p style="margin:0;color:var(--muted)">Модели: верхние роли работают на Claude Code и Kimi Code,
+<p style="margin:0 0 10px;color:var(--muted)">Модели: верхние роли работают на Claude Code и Kimi Code,
 исполнение — на кодинг-модели. Модель выбирается на сессию, а не на запрос.</p>
+<p style="margin:0"><a href="index.html">← Карта конвейера: шаги, роли и артефакты</a></p>
 </div>
 
 <main>
@@ -97,10 +98,10 @@ tr:last-child td { border-bottom: 0; }
   <div class="diagram">
 <pre class="mermaid">
 flowchart LR
-  classDef you fill:#fbf0d6,stroke:#8a5a00,color:#1d2126
-  classDef orch fill:#e3eef6,stroke:#1f5f8b,color:#1d2126
-  classDef auto fill:#e6f0e4,stroke:#3d6b3a,color:#1d2126
-  classDef file fill:#ffffff,stroke:#999,color:#1d2126,stroke-dasharray:4 3
+  classDef you fill:#3a2f16,stroke:#e2b45a,color:#f3e7d0
+  classDef orch fill:#16283a,stroke:#5aa9f8,color:#dbe7f2
+  classDef auto fill:#152a20,stroke:#5fd39a,color:#dcf0e4
+  classDef file fill:#111a23,stroke:#4a5c6e,color:#dbe7f2,stroke-dasharray:4 3
 
   V[Владелец<br/>вы]:::you
   A[Архитектор конвейера<br/>верхняя модель · интеграционная ветка]:::you
@@ -209,11 +210,11 @@ flowchart LR
   <div class="diagram">
 <pre class="mermaid">
 flowchart TB
-  classDef you fill:#fbf0d6,stroke:#8a5a00,color:#1d2126
-  classDef orch fill:#e3eef6,stroke:#1f5f8b,color:#1d2126
-  classDef auto fill:#e6f0e4,stroke:#3d6b3a,color:#1d2126
-  classDef warn fill:#f8e6e2,stroke:#9a3b2e,color:#1d2126
-  classDef gate fill:#ffffff,stroke:#1d2126,color:#1d2126
+  classDef you fill:#3a2f16,stroke:#e2b45a,color:#f3e7d0
+  classDef orch fill:#16283a,stroke:#5aa9f8,color:#dbe7f2
+  classDef auto fill:#152a20,stroke:#5fd39a,color:#dcf0e4
+  classDef warn fill:#3a1f1c,stroke:#f0a35e,color:#f6ded6
+  classDef gate fill:#16212c,stroke:#8fa3b6,color:#dbe7f2
 
   R[ready-for-agent<br/>зависимости done, файлы не пересекаются]:::auto
   CL[Оркестратор: claimed<br/>ветка t-NNN от integration/demo, worktree]:::orch
@@ -293,6 +294,6 @@ flowchart TB
   <p class="sub" style="margin-top:10px">Правило конвейера: если этого нет на диске, этого не было. Доклад в чате не считается.</p>
 </section>
 </main>
-<script>mermaid.initialize({ startOnLoad: true, theme: matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "neutral" });</script>
+<script>mermaid.initialize({ startOnLoad: true, theme: "dark", themeVariables: { fontFamily: '"IBM Plex Sans", system-ui, sans-serif', primaryColor: "#16212c", primaryTextColor: "#e8eef5", primaryBorderColor: "#4a5c6e", lineColor: "#5f7f9d", fontSize: "14px" } });</script>
 </body>
 </html>
