@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ASDLC — схема процесса</title>
-<meta name="description" content="Agentic Software Development Life Cycle: схема процесса в BPMN 2.0. Агенты делают работу, человек отвечает за намерение и приёмку.">
+<meta name="description" content="Agentic Software Development Life Cycle: схема процесса. Агенты делают работу, человек отвечает за намерение и приёмку.">
 <meta name="color-scheme" content="dark">
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -17,8 +17,8 @@
     <nav>
       <a href="#schema">схема</a>
       <a href="#contours">контуры</a>
-      <a href="#files">файлы</a>
       <a href="operations.html">операционная карта</a>
+      <a href="pipeline.bpmn" download>bpmn</a>
     </nav>
   </div>
 </header>
@@ -27,8 +27,7 @@
   <div>
     <h1>Agentic Software Development Life Cycle <span>/ ASDLC</span></h1>
     <p>Так я веду разработку: агенты делают работу, человек отвечает за намерение и приёмку.
-    Состояние процесса лежит в файлах репозитория: один тикет, одна рабочая копия, одна свежая сессия.
-    Ниже эта схема в BPMN 2.0.</p>
+    Состояние процесса лежит в файлах репозитория: один тикет, одна рабочая копия, одна свежая сессия.</p>
     <p class="path">запрос → проверка окружения → выбор контура → работа → приёмка человеком</p>
   </div>
   <div class="butterfly"><ascii-art piece="butterfly"></ascii-art></div>
@@ -36,18 +35,11 @@
 
 <section id="schema">
   <div class="wrap">
-    <div class="sec-title">схема процесса, 37 элементов, 18 связей</div>
-    <div class="frame">
-      <div id="bpmn"></div>
-      <div class="bar">
-        <button type="button" id="bpmn-replay">[проиграть снова]</button>
-        <span class="sep">·</span>
-        <button type="button" id="bpmn-fit">[вписать]</button>
-        <button type="button" id="bpmn-in">[+]</button>
-        <button type="button" id="bpmn-out">[−]</button>
-        <span class="right">колесо — масштаб, перетаскивание — сдвиг</span>
-      </div>
-    </div>
+    <div class="sec-title">схема процесса: шаги, роли, артефакты на входе и выходе</div>
+    <a class="schema-link" href="pipeline-editor.svg" title="Открыть схему в полном размере">
+      <img id="schema-img" src="pipeline-editor.svg" width="1528" height="698"
+           alt="Схема ASDLC: проверка окружения, четыре контура, роли агентов и артефакты каждого шага">
+    </a>
     <p class="note">Читается слева направо. Ромб после проверки окружения разводит процесс по четырём контурам:
     основной путь вверху, ниже прогон проверок, восстановление и обновление базы знаний.</p>
     <div class="links">
@@ -87,33 +79,22 @@
   </div>
 </section>
 
-<section id="files">
-  <div class="wrap">
-    <div class="sec-title">файлы и что дальше</div>
-    <div class="links">
-      <a href="pipeline.bpmn" download>[pipeline.bpmn]</a>
-      <a href="pipeline-scheme.pdf">[pipeline-scheme.pdf]</a>
-      <a href="pipeline-scheme.png">[pipeline-scheme.png]</a>
-      <a href="operations.html">[операционная карта: роли, гейты, роутинг моделей]</a>
-      <a href="README.md">[README]</a>
-    </div>
-    <details>
-      <summary>схема как в редакторе, с плашками артефактов (SVG, 1,9 МБ)</summary>
-      <img src="pipeline-editor.svg" alt="Схема ASDLC из редактора: шаги, роли и артефакты" loading="lazy" decoding="async" width="1528" height="698">
-    </details>
-  </div>
-</section>
-
 <footer>
   <div class="wrap">
-    <p>Бабочка: <a href="https://ascii.rest/butterfly/">ascii.rest</a>, MIT. Схема: BPMN 2.0, отрисовка
-    <a href="https://github.com/bpmn-io/bpmn-js">bpmn-js</a>, MIT.</p>
+    <p>Схема: BPMN 2.0, выгружена из редактора. Бабочка: <a href="https://ascii.rest/butterfly/">ascii.rest</a>, MIT.</p>
     <p>Название продукта, имена папок, локальные пути и данные заказчика заменены на нейтральные.</p>
   </div>
 </footer>
 
 <script type="module" src="https://ascii.rest/ascii.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bpmn-js@17/dist/bpmn-navigated-viewer.production.min.js"></script>
-<script src="app.js"></script>
+<script>
+  // мягкое появление схемы; если анимация недоступна, картинка просто видна
+  (function () {
+    var img = document.getElementById('schema-img');
+    if (!img || !img.animate) return;
+    function show() { img.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 500, easing: 'ease-out' }); }
+    if (img.complete) show(); else img.addEventListener('load', show);
+  })();
+</script>
 </body>
 </html>
