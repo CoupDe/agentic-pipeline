@@ -169,7 +169,13 @@ flowchart TB
     host.innerHTML = '<p style="padding:16px">Не удалось загрузить bpmn-js: ' + e.message + '</p>';
     return;
   }
-  function fit() { try { viewer.get('canvas').zoom('fit-viewport'); } catch (e) {} }
+  function fit() {
+    try {
+      var canvas = viewer.get('canvas');
+      canvas.resized();          // bpmn-js кэширует размер контейнера: без этого масштаб остаётся прежним
+      canvas.zoom('fit-viewport');
+    } catch (e) {}
+  }
   function zoomBy(step) {
     try {
       var canvas = viewer.get('canvas');

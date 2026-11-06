@@ -53,7 +53,9 @@
       var height = Math.round(width * box.h / box.w);
       host.style.width = width + 'px';
       host.style.height = height + 'px';
-      viewer.get('canvas').zoom('fit-viewport');
+      var canvas = viewer.get('canvas');
+      canvas.resized();          // bpmn-js кэширует размер контейнера: без этого масштаб остаётся прежним
+      canvas.zoom('fit-viewport');
       document.body.setAttribute('data-size', width + 'x' + height);
       document.title = 'Схема готова';
     })
