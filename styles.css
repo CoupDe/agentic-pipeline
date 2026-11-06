@@ -1,13 +1,13 @@
 /* ASDLC — страница-визитка. Терминальный вид: моноширинный шрифт, один акцент,
-   минимум украшений, плотные отступы. */
+   плотные отступы, светлый текст на тёмном. */
 
 :root{
   --bg:#0a0a0a;
-  --fg:#d2d2d2;
-  --dim:#6e6e6e;
-  --faint:#3a3a3a;
-  --line:#1e1e1e;
-  --accent:#a3c98f;
+  --fg:#f2f2f2;        /* основной текст */
+  --dim:#c9c9c9;       /* второй план: читается так же легко */
+  --faint:#7a7a7a;     /* подчёркивание ссылок, рамки схемы */
+  --line:#2a2a2a;
+  --accent:#a3c98f;    /* единственный цвет, в том числе подсветка выделения */
   --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
 }
 
@@ -52,9 +52,26 @@ p{margin:0 0 8px}
 section{padding:14px 0; border-top:1px solid var(--line)}
 .sec-title{font-size:12.5px; color:var(--dim); margin-bottom:8px}
 .sec-title::before{content:"# "; color:var(--faint)}
-.schema-link{display:block; border:0}
+
+.schema-open{display:block; width:100%; padding:0; border:0; background:none;
+  cursor:zoom-in; font:inherit; color:inherit}
+.schema-open:hover #schema-img{opacity:.88}
 #schema-img{display:block; width:100%; height:auto}
-.schema-link:hover #schema-img{opacity:.9}
+
+/* ── контакты ────────────────────────────────────────── */
+.contacts{display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 26px; margin-top:12px}
+.contacts__title{color:var(--dim); font-size:12.5px}
+.contacts__title::before{content:"# "; color:var(--faint)}
+.contact{position:relative; display:inline-flex; align-items:baseline; gap:9px}
+.contact__role{color:var(--dim); font-size:12.5px}
+.contact__value{font-size:14px}
+.contact__copy{font:12.5px var(--mono); color:var(--dim); background:none; border:0; padding:0; cursor:pointer}
+.contact__copy:hover{color:var(--accent)}
+.contact__tip{position:absolute; left:0; bottom:calc(100% + 7px); white-space:nowrap;
+  background:#161616; border:1px solid var(--faint); color:var(--fg); font-size:12px;
+  padding:4px 9px; border-radius:4px; opacity:0; visibility:hidden; transition:opacity .15s;
+  pointer-events:none; z-index:5}
+.contact:hover .contact__tip,.contact:focus-within .contact__tip{opacity:1; visibility:visible}
 
 /* ── таблица контуров ────────────────────────────────── */
 table{width:100%; border-collapse:collapse; font-size:13px}
@@ -64,11 +81,25 @@ tr:last-child td{border-bottom:0}
 td:first-child{white-space:nowrap}
 td:last-child{color:var(--dim)}
 
-/* ── строки и ссылки ─────────────────────────────────── */
-.links{display:flex; flex-wrap:wrap; gap:6px 16px; font-size:12.5px; margin-top:10px}
 .note{color:var(--dim); font-size:12.5px; margin-top:8px; max-width:96ch}
+.note__hint{color:var(--dim); white-space:nowrap; opacity:.75}
 
 footer{border-top:1px solid var(--line); padding:12px 0 22px; color:var(--dim); font-size:12px}
 footer p{margin:0 0 3px; max-width:96ch}
+
+/* ── схема во весь экран ─────────────────────────────── */
+.lightbox{position:fixed; inset:0; z-index:50; background:#070707; display:flex; flex-direction:column}
+.lightbox[hidden]{display:none}
+.lightbox__bar{display:flex; align-items:center; gap:12px; padding:6px 10px; border-bottom:1px solid var(--line);
+  font-size:12.5px; color:var(--dim); flex:none}
+.lightbox__title{color:var(--fg)}
+.lightbox__zoom{margin-left:auto; min-width:46px; text-align:right}
+.lb-btn{font:12.5px var(--mono); color:var(--dim); background:none; border:1px solid var(--line);
+  padding:3px 9px; cursor:pointer}
+.lb-btn:hover{color:var(--accent); border-color:var(--accent)}
+.lb-btn--close{font-size:14px; padding:3px 10px}
+.lightbox__stage{flex:1; overflow:auto; display:grid; place-items:safe center; cursor:default;
+  -webkit-overflow-scrolling:touch}
+#lightbox-img{display:block; width:calc(var(--z,1) * 100%); height:auto; max-width:none; cursor:default}
 
 @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }

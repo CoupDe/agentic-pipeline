@@ -17,8 +17,7 @@
     <nav>
       <a href="#schema">схема</a>
       <a href="#contours">контуры</a>
-      <a href="operations.html">операционная карта</a>
-      <a href="pipeline.bpmn" download>bpmn</a>
+      <a href="#contacts">контакты</a>
     </nav>
   </div>
 </header>
@@ -36,16 +35,32 @@
 <section id="schema">
   <div class="wrap">
     <div class="sec-title">схема процесса: шаги, роли, артефакты на входе и выходе</div>
-    <a class="schema-link" href="pipeline-editor.svg" title="Открыть схему в полном размере">
+
+    <button type="button" class="schema-open" id="schema-open" aria-label="Открыть схему на весь экран">
       <img id="schema-img" src="pipeline-editor.svg" width="1528" height="698"
            alt="Схема ASDLC: проверка окружения, четыре контура, роли агентов и артефакты каждого шага">
-    </a>
+    </button>
+
     <p class="note">Читается слева направо. Ромб после проверки окружения разводит процесс по четырём контурам:
-    основной путь вверху, ниже прогон проверок, восстановление и обновление базы знаний.</p>
-    <div class="links">
-      <a href="pipeline.bpmn" download>[схема в BPMN 2.0]</a>
-      <a href="pipeline-scheme.pdf">[PDF, лист A4]</a>
-      <a href="pipeline-scheme.png">[PNG]</a>
+    основной путь вверху, ниже прогон проверок, восстановление и обновление базы знаний.
+    <span class="note__hint">клик по схеме — на весь экран</span></p>
+
+    <div class="contacts" id="contacts">
+      <span class="contacts__title">контакты</span>
+
+      <div class="contact">
+        <span class="contact__role">телефон</span>
+        <a class="contact__value" href="tel:+79267528553">+7 926-752-85-53</a>
+        <button type="button" class="contact__copy" data-copy="+79267528553">[скопировать]</button>
+        <span class="contact__tip" role="status" aria-live="polite"></span>
+      </div>
+
+      <div class="contact">
+        <span class="contact__role">почта</span>
+        <a class="contact__value" href="mailto:a.ttroy@yandex.ru">a.ttroy@yandex.ru</a>
+        <button type="button" class="contact__copy" data-copy="a.ttroy@yandex.ru">[скопировать]</button>
+        <span class="contact__tip" role="status" aria-live="polite"></span>
+      </div>
     </div>
   </div>
 </section>
@@ -86,15 +101,22 @@
   </div>
 </footer>
 
+<div class="lightbox" id="lightbox" hidden>
+  <div class="lightbox__bar">
+    <span class="lightbox__title">схема процесса</span>
+    <span class="lightbox__zoom" id="lightbox-zoom">100%</span>
+    <button type="button" class="lb-btn" data-zoom="out" aria-label="Отдалить">[−]</button>
+    <button type="button" class="lb-btn" data-zoom="in" aria-label="Приблизить">[+]</button>
+    <button type="button" class="lb-btn" data-zoom="reset">[сбросить]</button>
+    <button type="button" class="lb-btn lb-btn--close" data-close aria-label="Закрыть">[×]</button>
+  </div>
+  <div class="lightbox__stage" id="lightbox-stage">
+    <img id="lightbox-img" src="pipeline-editor.svg"
+         alt="Схема ASDLC в полном размере: четыре контура, роли и артефакты">
+  </div>
+</div>
+
 <script type="module" src="https://ascii.rest/ascii.js"></script>
-<script>
-  // мягкое появление схемы; если анимация недоступна, картинка просто видна
-  (function () {
-    var img = document.getElementById('schema-img');
-    if (!img || !img.animate) return;
-    function show() { img.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 500, easing: 'ease-out' }); }
-    if (img.complete) show(); else img.addEventListener('load', show);
-  })();
-</script>
+<script src="ui.js"></script>
 </body>
 </html>
