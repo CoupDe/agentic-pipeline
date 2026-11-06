@@ -34,7 +34,7 @@ ul{margin:0 0 12px;padding-left:22px}
 li{margin:4px 0}
 .tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;background:var(--you-soft);color:var(--you);border:1px solid var(--you)}
 .bpmn-wrap{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:14px 0}
-#bpmn{height:640px;width:100%;background:#fff}
+#bpmn{height:min(78vh,820px);width:100%;background:#fff}
 .controls{display:flex;gap:8px;align-items:center;padding:10px 12px;border-top:1px solid var(--line);flex-wrap:wrap}
 .controls button{font:14px var(--sans);padding:5px 12px;border:1px solid var(--line);background:var(--panel);
   color:var(--fg);border-radius:7px;cursor:pointer}
@@ -62,12 +62,14 @@ summary{cursor:pointer;color:var(--accent);font-size:14px}
     <button type="button" id="fit">Вписать</button>
     <button type="button" id="zoom-in">Увеличить</button>
     <button type="button" id="zoom-out">Уменьшить</button>
-    <span class="hint">Колесо мыши — масштаб, перетаскивание — сдвиг</span>
+    <span class="hint">Колесо мыши — масштаб · <a href="pipeline-scheme.pdf">PDF, A4</a> · <a href="pipeline-scheme.png">PNG</a></span>
   </div>
 </div>
 
 <p>Диаграмма в формате BPMN 2.0: файл <a href="pipeline.bpmn">pipeline.bpmn</a> в этом репозитории.
-Его можно открыть в любом BPMN-редакторе, включая <a href="https://demo.bpmn.io/">bpmn.io</a>.</p>
+Его можно открыть в любом BPMN-редакторе, включая <a href="https://demo.bpmn.io/">bpmn.io</a>.
+Схема целиком одним листом: <a href="pipeline-scheme.pdf">PDF, A4 альбомная</a>,
+<a href="pipeline-scheme.png">PNG</a>.</p>
 
 <details>
 <summary>Исходник схемы в виде Mermaid — для копирования</summary>

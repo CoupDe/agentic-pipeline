@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Конвейер разработки агентами — схема для печати</title>
+<style>
+  html,body{margin:0;padding:0;background:#fff}
+  /* размер подобран под A4 в альбомной ориентации с полями 6 мм */
+  #bpmn{width:1090px;height:740px}
+  @page{size:A4 landscape;margin:6mm}
+  @media print{
+    html,body{background:#fff}
+    #bpmn{width:1090px;height:740px}
+  }
+</style>
+</head>
+<body>
+<div id="bpmn"></div>
+<script src="https://cdn.jsdelivr.net/npm/bpmn-js@17/dist/bpmn-navigated-viewer.production.min.js"></script>
+<script>
+(function () {
+  var viewer = new BpmnJS({ container: '#bpmn' });
+  fetch('pipeline.bpmn')
+    .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+    .then(function (xml) { return viewer.importXML(xml); })
+    .then(function () {
+      var canvas = viewer.get('canvas');
+      canvas.zoom('fit-viewport');
+      document.title = 'Схема готова';
+    })
+    .catch(function (err) {
+      document.getElementById('bpmn').textContent = 'Ошибка отрисовки: ' + err.message;
+    });
+})();
+</script>
+</body>
+</html>
